@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "extends": "twentytwentyfive",
+    "settings": {
+      "color": {
+        "palette": [
+          {
+            "name": "Primary",
+            "slug": "primary",
+            "color": "#1E40AF"
+          }
+        ]
+      }
+    }
+  }
+  
