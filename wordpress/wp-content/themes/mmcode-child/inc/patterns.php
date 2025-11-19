@@ -4,6 +4,7 @@ function mm_register_patterns() {
 
         // --- Headers ---
         $headers = [
+            'navbar-main' => 'mm-navbar-main.php',
             'navbar-red'  => 'mm-navbar-red.php',
             'navbar-dark' => 'mm-navbar-dark.php',
         ];
@@ -23,6 +24,7 @@ function mm_register_patterns() {
 
         // --- Footers ---
         $footers = [
+            'footer-main' => 'mm-footer-main.php',
             'footer-red'  => 'mm-footer-red.php',
             'footer-dark' => 'mm-footer-dark.php',
         ];
