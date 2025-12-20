@@ -74,7 +74,8 @@ define( 'DB_COLLATE', getenv_docker('WORDPRESS_DB_COLLATE', '') );
  * This will force all users to have to log in again.
  *
  * @since 2.6.0
- */
+ */define('FS_METHOD', 'direct');
+
 define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY',         'b9c4923342c33c5173eca90e57b752400679d555') );
 define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY',  'bc898346a4934f4e474d4c3c36fb57a22ad6ffad') );
 define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY',    '11e1305cbf3a07a5ae5e1af4f9eabe31f8de3084') );
