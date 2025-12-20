@@ -6,6 +6,10 @@
       MMCode Theme (Tailwind works ✅)
     </h1>
 
+    <!-- Hier gebruik ik een klass van de Tailwind hergebruiken -->
+    
+<div class="bg-dark text-primary p-6"> Mo King</div>
+
     <p class="mt-4 text-neutral-300">
       If you see the red title + dark background, Tailwind is loaded.
     </p>

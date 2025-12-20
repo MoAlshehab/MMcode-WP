@@ -14,7 +14,7 @@
       MMCode
     </a>
     <nav class="text-sm text-neutral-300">
-      <a class="hover:text-white" href="<?php echo esc_url(home_url('/')); ?>">Home</a>
+<?php mmcode_tailwind_menu(); ?>
     </nav>
   </div>
 </header>
