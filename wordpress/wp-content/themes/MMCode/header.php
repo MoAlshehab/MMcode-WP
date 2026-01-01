@@ -2,19 +2,35 @@
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
+  <title>
+    <?php wp_title('|','true','right') ?>
+    <?php bloginfo('name')?>
+  </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php wp_head(); ?>
 </head>
-<body <?php body_class('bg-neutral-950'); ?>>
+<body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header class="border-b border-neutral-800 bg-neutral-950">
-  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="<?php echo esc_url(home_url('/')); ?>" class="font-semibold text-red-500">
+<header class="bg-white text-black border-b border-gray-200
+               dark:bg-bg dark:text-textBase dark:border-borderBase">
+  <div class="site-header-inner">
+
+    <!-- Logo -->
+    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
       MMCode
     </a>
-    <nav class="text-sm text-neutral-300">
-<?php mmcode_tailwind_menu(); ?>
+
+    <!-- Navigation -->
+    <nav class="nav-main">
+      <?php mmcode_tailwind_menu(); ?>
+
+      <button id="theme-toggle"
+        class="btn-theme-toggle"
+        aria-label="Toggle dark mode">
+        🌙
+      </button>
     </nav>
+
   </div>
 </header>
