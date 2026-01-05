@@ -1,13 +1,13 @@
 <?php get_header(); ?>
 
   <main class="bg-white text-black border-b border-gray-200
-               dark:bg-bg dark:text-textBase dark:border-borderBase">
+      dark:bg-bg dark:text-textBase dark:border-borderBase">
 
 
 <?php if ( have_posts() ) : ?>
   <?php while ( have_posts() ) : the_post(); ?>
 
-    <article class="mx-auto max-w-3xl px-6 py-16">
+    <article class="mx-auto max-w-7xl px-6 py-16">
 
       <!-- Featured Image -->
       <?php if ( has_post_thumbnail() ) : ?>
@@ -66,11 +66,25 @@
                   prose-a:text-primary">
 
         <?php the_content('Read The Full Article ...'); ?>
+      </div> 
+      
+      <?php if ( current_user_can('edit_post', get_the_ID()) ) : ?>
+  <div class="mt-8">
+    <?php edit_post_link(
+      '✏️ Edit this post',
+      '<span class="inline-flex items-center gap-2 rounded-lg
+                   border border-borderBase bg-surface
+                   px-4 py-2 text-sm font-medium
+                   text-primary hover:bg-surfaceLight transition">',
+      '</span>'
+    ); ?>
+  </div>
+<?php endif; ?>
 
-      </div>
 
       <!-- Author box -->
-      <div class="mt-16 flex items-center gap-6 rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+  <div class="bg-white text-black border-b border-gray-200
+      dark:bg-bg dark:text-textBase dark:border-borderBase">
 
         <?php echo get_avatar( get_the_author_meta('ID'), 64, '', '', [
           'class' => 'h-16 w-16 rounded-full'

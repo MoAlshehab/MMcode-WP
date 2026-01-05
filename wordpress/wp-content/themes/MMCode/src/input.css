@@ -1,3 +1,305 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&display=swap');
+    
+    
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+  /* =========================
+     BASE BUTTON
+  ========================== */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+           px-4 py-2 rounded-lg
+           text-sm font-semibold
+           transition-all duration-200;
+  }
+
+  /* =========================
+     PREV / NEXT NAV BUTTONS
+  ========================== */
+  .btn-nav {
+    @apply btn
+           border border-borderBase
+           bg-surface/60
+           text-primary
+           hover:bg-surfaceLight/80;
+  }
+
+  .btn-nav-disabled {
+    @apply btn
+           border border-borderBase
+           bg-surface/40
+           text-textMuted
+           opacity-50
+           cursor-not-allowed;
+  }
+
+  /* =========================
+     HEADER
+  ========================== */
+  .site-header {
+    @apply bg-white text-black
+           border-b border-gray-200
+           dark:bg-bg dark:text-textBase
+           dark:border-borderBase;
+  }
+
+  .site-header-inner {
+    @apply max-w-7xl mx-auto
+           px-6 py-4
+           flex items-center justify-between;
+  }
+
+  .site-logo {
+    @apply text-xl font-bold tracking-wide
+           text-primary
+           hover:text-primaryHover
+           transition;
+  }
+
+  .custom-logo {
+    @apply h-10 w-auto;
+  }
+
+  /* =========================
+     NAVIGATION
+  ========================== */
+  .nav-main {
+    @apply flex items-center gap-8
+           font-menuFont;
+  }
+
+  .nav-main a {
+    @apply text-textMuted
+           font-medium
+           transition
+           hover:text-primary;
+  }
+
+  /* =========================
+     DROPDOWN MENU
+  ========================== */
+  .nav-main li {
+    @apply relative;
+  }
+
+  .nav-main li > ul {
+    @apply absolute left-0 top-full mt-3
+           min-w-[12rem]
+           rounded-xl
+           border border-borderBase
+           bg-surface
+           p-2
+           opacity-0 invisible
+           translate-y-2
+           transition-all duration-200
+           z-50;
+  }
+
+  .nav-main li:hover > ul {
+    @apply opacity-100 visible translate-y-0;
+  }
+
+  .nav-main li ul a {
+    @apply block rounded-lg px-3 py-2
+           text-sm text-textMuted
+           hover:bg-surfaceLight
+           hover:text-primary;
+  }
+
+  /* =========================
+     THEME TOGGLE BUTTON
+  ========================== */
+  .btn-theme-toggle {
+    @apply ml-4 px-3 py-2 rounded-lg
+           border border-borderBase
+           bg-surface
+           text-sm
+           hover:bg-surfaceLight
+           transition;
+  }
+
+  /* =========================
+     FOOTER NAV (RIGHT ALIGNED)
+  ========================== */
+  .footer-nav > ul {
+    @apply flex flex-wrap justify-end p-7
+           gap-12 text-right;
+  }
+
+  .footer-nav > ul > li > a {
+    @apply block mb-2
+           font-bold text-sm
+           text-textBase;
+  }
+
+  .footer-nav .sub-menu {
+    @apply flex flex-col gap-1;
+  }
+
+  .footer-nav .sub-menu a {
+    @apply text-sm text-textMuted
+           hover:text-primary
+           transition;
+  }
+
+  .post-author {
+    @apply mt-16 flex items-start gap-4
+           rounded-2xl
+           border border-borderBase
+           bg-surface p-6
+           dark:bg-surfaceLight;
+  }
+
+  .post-author-avatar img {
+    @apply h-16 w-16 rounded-full
+           border border-borderBase;
+  }
+
+  .post-author-label {
+    @apply text-xs uppercase tracking-wide
+           text-textMuted;
+  }
+
+  .post-author-name {
+    @apply text-lg font-semibold
+           text-primary;
+  }
+
+  .post-author-bio {
+    @apply mt-1 text-sm
+           text-textMuted;
+  }
+
+  .post-author-meta {
+    @apply mt-3 flex items-center gap-3
+           text-sm text-textMuted;
+  }
+
+  .post-author-meta a {
+    @apply font-medium text-primary
+           hover:underline;
+  }
+
+  .post-author-meta .dot {
+    @apply opacity-50;
+  }
+
+  /* =========================
+     AUTHOR HERO
+  ========================== */
+  .author-hero {
+    @apply border-b border-borderBase
+           bg-gray-50
+           dark:bg-surface;
+  }
+
+  .author-hero-inner {
+    @apply max-w-7xl mx-auto
+           px-6 py-16
+           flex flex-col md:flex-row
+           items-center gap-8;
+  }
+
+  .author-avatar img {
+    @apply h-28 w-28 rounded-full
+           border border-borderBase;
+  }
+
+  .author-info {
+    @apply text-center md:text-left;
+  }
+
+  .author-name {
+    @apply text-3xl font-bold
+           text-primary;
+  }
+
+  .author-bio {
+    @apply mt-2 max-w-xl
+           text-textMuted;
+  }
+
+  .author-stats {
+    @apply mt-4 flex flex-wrap
+           justify-center md:justify-start
+           gap-4 text-sm
+           text-textMuted;
+  }
+
+  .author-stats a {
+    @apply text-primary font-medium
+           hover:underline;
+  }
+
+  .author-stats .dot {
+    @apply opacity-40;
+  }
+
+  /* =========================
+     AUTHOR POSTS
+  ========================== */
+  .author-posts {
+    @apply py-20;
+  }
+
+  .author-posts-inner {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+  .author-posts-title {
+    @apply mb-10 text-2xl font-bold
+           text-primary;
+  }
+
+  .author-posts-grid {
+    @apply grid gap-8
+           sm:grid-cols-2
+           lg:grid-cols-3;
+  }
+
+  .author-post-card {
+    @apply rounded-2xl overflow-hidden
+           border border-borderBase
+           bg-white
+           transition hover:-translate-y-1
+           hover:shadow-lg
+           dark:bg-surface;
+  }
+
+  .author-post-image img {
+    @apply h-48 w-full object-cover;
+  }
+
+  .author-post-content {
+    @apply p-6;
+  }
+
+  .author-post-title {
+    @apply text-lg font-semibold
+           text-primary;
+  }
+
+  .author-post-title a {
+    @apply hover:underline;
+  }
+
+  .author-post-excerpt {
+    @apply mt-2 text-sm
+           text-textMuted;
+  }
+
+  .author-post-link {
+    @apply mt-4 inline-block
+           text-sm font-medium
+           text-primary
+           hover:underline;
+  }
+
+}
+

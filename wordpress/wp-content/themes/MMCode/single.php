@@ -33,7 +33,7 @@
       </div>
     <?php endif; ?>
 
-    <div class="post-author">
+    <!-- <div class="post-author">
       <?php echo get_avatar( get_the_author_meta('ID') ); ?>
       <div>
         <p class="text-sm text-textMuted">Written by</p>
@@ -41,6 +41,51 @@
         <p class="text-sm text-textMuted"><?php the_author_meta('description'); ?></p>
       </div>
     </div>
+    <p> User Posts Count: <span> <?php echo count_user_posts(get_the_author_meta('ID')) ?> </php></span></p>
+        <p> User Profile Link: <span> <?php the_author_posts_link() ?> </php></span></p> -->
+<div class="post-author">
+
+  <!-- Avatar -->
+  <div class="post-author-avatar">
+    <?php echo get_avatar( get_the_author_meta('ID'), 72 ); ?>
+  </div>
+
+  <!-- Author info -->
+  <div class="post-author-info">
+
+    <p class="post-author-label">
+      Written by
+    </p>
+
+    <p class="post-author-name">
+      <?php the_author(); ?>
+    </p>
+
+    <?php if ( get_the_author_meta('description') ) : ?>
+      <p class="post-author-bio">
+        <?php the_author_meta('description'); ?>
+      </p>
+    <?php endif; ?>
+
+    <!-- Meta info -->
+    <div class="post-author-meta">
+
+      <span>
+        📝 <?php echo count_user_posts( get_the_author_meta('ID') ); ?> posts
+      </span>
+
+      <span class="dot">•</span>
+
+      <span>
+        👤 <?php the_author_posts_link(); ?>
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
 
   <div class="mt-16 flex justify-between border-t border-borderBase pt-6">
 
@@ -65,11 +110,16 @@
   <?php endif; ?>
 
 </div>
-
+  </div>
+  
+   <?php comments_template(); ?>
+  
+  </div>
 
   </article>
 
 <?php endwhile; endif; ?>
+
 
 </main>
 
