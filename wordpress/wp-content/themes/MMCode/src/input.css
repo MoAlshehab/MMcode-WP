@@ -8,9 +8,27 @@
 @tailwind utilities;
 
 @layer components {
+ /* =========================
+    Dark Light Mode
+  ========================== */
+
+.page {
+  @apply bg-white text-gray-900
+         dark:bg-neutral-950 dark:text-gray-200;
+}
+
+.surface {
+  @apply bg-gray-50
+         dark:bg-surface;
+}
+
+.surface-light {
+  @apply bg-white
+         dark:bg-surfaceLight;
+}
 
   /* =========================
-     BASE BUTTON
+     BASE BUTTONS
   ========================== */
   .btn {
     @apply inline-flex items-center justify-center gap-2
@@ -19,9 +37,6 @@
            transition-all duration-200;
   }
 
-  /* =========================
-     PREV / NEXT NAV BUTTONS
-  ========================== */
   .btn-nav {
     @apply btn
            border border-borderBase
@@ -39,32 +54,50 @@
            cursor-not-allowed;
   }
 
-  /* =========================
-     HEADER
-  ========================== */
-  .site-header {
-    @apply bg-white text-black
-           border-b border-gray-200
-           dark:bg-bg dark:text-textBase
-           dark:border-borderBase;
-  }
+/* =========================
+   HEADER
+========================= */
 
-  .site-header-inner {
-    @apply max-w-7xl mx-auto
-           px-6 py-4
-           flex items-center justify-between;
-  }
+.site-header {
+  @apply bg-white text-gray-900 border-b border-gray-200
+         dark:bg-neutral-950 dark:text-gray-200 dark:border-slate-800;
+}
 
-  .site-logo {
-    @apply text-xl font-bold tracking-wide
-           text-primary
-           hover:text-primaryHover
-           transition;
-  }
+.header-inner {
+  @apply max-w-screen-xl mx-auto px-6 py-6
+         flex items-center justify-between;
+}
 
-  .custom-logo {
-    @apply h-10 w-auto;
-  }
+/* LOGO */
+.site-logo {
+  @apply text-xl font-bold text-red-600
+         dark:text-red-500;
+}
+
+.site-logo img {
+  @apply h-8 w-auto;
+}
+
+/* NAV */
+.main-nav {
+  @apply flex items-center gap-6;
+}
+
+.main-nav a {
+  @apply text-sm font-medium text-gray-700 transition-colors
+         hover:text-red-600
+         dark:text-gray-300 dark:hover:text-red-500;
+}
+
+/* THEME TOGGLE */
+.theme-toggle {
+  @apply ml-4 rounded-lg border px-3 py-2 text-sm
+         border-gray-300 text-gray-700
+         hover:bg-gray-100
+         dark:border-slate-700 dark:text-gray-300
+         dark:hover:bg-slate-800
+         transition;
+}
 
   /* =========================
      NAVIGATION
@@ -75,19 +108,15 @@
   }
 
   .nav-main a {
-    @apply text-textMuted
-           font-medium
-           transition
-           hover:text-primary;
+    @apply text-textMuted font-medium
+           transition hover:text-primary;
   }
 
-  /* =========================
-     DROPDOWN MENU
-  ========================== */
   .nav-main li {
     @apply relative;
   }
 
+  /* Dropdown */
   .nav-main li > ul {
     @apply absolute left-0 top-full mt-3
            min-w-[12rem]
@@ -105,6 +134,22 @@
     @apply opacity-100 visible translate-y-0;
   }
 
+  /* Dropdown arrow */
+  .nav-main li.menu-item-has-children > a {
+    @apply inline-flex items-center gap-1;
+  }
+
+  .nav-main li.menu-item-has-children > a::after {
+    content: "▾";
+    @apply text-lg leading-none
+           text-textMuted
+           transition-transform duration-200;
+  }
+
+  .nav-main li.menu-item-has-children:hover > a::after {
+    @apply rotate-180 text-primary;
+  }
+
   .nav-main li ul a {
     @apply block rounded-lg px-3 py-2
            text-sm text-textMuted
@@ -113,7 +158,7 @@
   }
 
   /* =========================
-     THEME TOGGLE BUTTON
+     THEME TOGGLE
   ========================== */
   .btn-theme-toggle {
     @apply ml-4 px-3 py-2 rounded-lg
@@ -125,10 +170,10 @@
   }
 
   /* =========================
-     FOOTER NAV (RIGHT ALIGNED)
+     FOOTER NAV
   ========================== */
   .footer-nav > ul {
-    @apply flex flex-wrap justify-end p-7
+    @apply flex flex-wrap justify-end
            gap-12 text-right;
   }
 
@@ -148,22 +193,19 @@
            transition;
   }
 
+  /* =========================
+     POST AUTHOR BOX
+  ========================== */
   .post-author {
     @apply mt-16 flex items-start gap-4
            rounded-2xl
            border border-borderBase
-           bg-surface p-6
-           dark:bg-surfaceLight;
+           bg-surface p-6;
   }
 
-  .post-author-avatar img {
+  .post-author img {
     @apply h-16 w-16 rounded-full
            border border-borderBase;
-  }
-
-  .post-author-label {
-    @apply text-xs uppercase tracking-wide
-           text-textMuted;
   }
 
   .post-author-name {
@@ -191,7 +233,7 @@
   }
 
   /* =========================
-     AUTHOR HERO
+     AUTHOR PAGE
   ========================== */
   .author-hero {
     @apply border-b border-borderBase
@@ -227,7 +269,6 @@
 
   .author-stats {
     @apply mt-4 flex flex-wrap
-           justify-center md:justify-start
            gap-4 text-sm
            text-textMuted;
   }
@@ -235,10 +276,6 @@
   .author-stats a {
     @apply text-primary font-medium
            hover:underline;
-  }
-
-  .author-stats .dot {
-    @apply opacity-40;
   }
 
   /* =========================
@@ -250,11 +287,6 @@
 
   .author-posts-inner {
     @apply max-w-7xl mx-auto px-6;
-  }
-
-  .author-posts-title {
-    @apply mb-10 text-2xl font-bold
-           text-primary;
   }
 
   .author-posts-grid {
@@ -285,10 +317,6 @@
            text-primary;
   }
 
-  .author-post-title a {
-    @apply hover:underline;
-  }
-
   .author-post-excerpt {
     @apply mt-2 text-sm
            text-textMuted;
@@ -300,6 +328,287 @@
            text-primary
            hover:underline;
   }
+   /* =========================
+     INDEX / BLOG LAYOUT
+  ========================== */
+
+  .index-wrapper {
+    @apply bg-white text-black
+           border-b border-gray-200
+           dark:bg-bg dark:text-textBase
+           dark:border-borderBase;
+  }
+  
+  .index-container {
+    @apply mx-auto max-w-7xl px-6 py-16;
+  }
+  
+  .index-post {
+    @apply mb-20;
+  }
+  
+  .index-featured {
+    @apply mb-8 overflow-hidden rounded-2xl
+           border border-borderBase;
+  }
+  
+  .index-meta {
+    @apply mb-4 flex flex-wrap gap-3
+           text-sm text-textMuted;
+  }
+
+  .index-category {
+    @apply rounded-full bg-surfaceLight
+           px-3 py-1 text-xs;
+  }
+
+  .index-content {
+  @apply max-w-none
+         text-textMuted
+         leading-relaxed;
+}
+
+.index-content h1,
+.index-content h2,
+.index-content h3 {
+  @apply text-textBase font-bold;
+}
+
+.index-content a {
+  @apply text-primary underline;
+}
+
+  .index-title {
+    @apply mb-4 text-3xl font-bold
+           tracking-tight text-primary;
+  }
+
+   .index-author {
+    @apply mt-10 flex gap-4
+           rounded-2xl border border-borderBase
+           bg-surface p-6;
+  }
+
+  
+  .index-nav {
+    @apply mt-20 flex justify-between
+           border-t border-borderBase pt-6;
+  }
+
+/* =========================
+   SINGLE POST PAGE
+========================= */
+
+.single-page {
+  @apply bg-neutral-950 text-gray-200 py-16 px-4;
+}
+
+.post-wrapper {
+  @apply max-w-[780px] mx-auto flex flex-col gap-10;
+}
+
+/* IMAGE */
+.post-image img {
+  @apply w-full rounded-2xl border border-neutral-800;
+}
+
+/* META */
+.post-meta {
+  @apply flex flex-wrap gap-4 text-sm text-gray-400;
+}
+
+.post-category {
+  @apply text-red-500 font-semibold;
+}
+
+/* TITLE */
+.post-title {
+  @apply text-4xl font-bold leading-tight text-red-500;
+}
+
+/* CONTENT */
+.post-content {
+  @apply text-base leading-relaxed;
+}
+
+.post-content h2,
+.post-content h3 {
+  @apply mt-8 text-gray-100 font-semibold;
+}
+
+.post-content p {
+  @apply my-5;
+}
+
+/* TAGS */
+.post-tags {
+  @apply flex flex-wrap gap-2;
+}
+
+.post-tags span {
+  @apply bg-slate-800 px-3 py-1 rounded-full text-xs text-gray-400;
+}
+
+/* AUTHOR CARD */
+.post-author {
+  @apply flex gap-6 bg-slate-900 p-6 rounded-2xl border border-slate-800;
+}
+
+.post-author-avatar img {
+  @apply rounded-full;
+}
+
+.post-author-label {
+  @apply text-[0.7rem] uppercase tracking-widest text-gray-400;
+}
+
+.post-author-name {
+  @apply text-lg font-semibold text-red-500;
+}
+
+.post-author-bio {
+  @apply text-sm text-gray-400;
+}
+
+.post-author-meta {
+  @apply flex gap-3 text-xs text-gray-400;
+}
+
+/* NAVIGATION */
+.post-navigation {
+  @apply flex justify-between pt-6 border-t border-slate-800;
+}
+
+.nav-btn {
+  @apply text-sm text-gray-200 transition-colors duration-200;
+}
+
+.nav-btn:hover {
+  @apply text-red-500;
+}
+
+.nav-btn.disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+
+/* EDIT LINK */
+.post-edit {
+  @apply mt-4 text-xs text-gray-400;
+}
+
+/* =========================
+   COMMENTS
+========================= */
+
+.comments-section {
+  @apply mt-20 max-w-[780px] mx-auto;
+}
+
+.comments-title {
+  @apply mb-8 text-2xl font-bold text-red-600 dark:text-red-500;
+}
+
+/* LIST */
+.comments-list {
+  @apply space-y-6;
+}
+
+.comment-item {
+  @apply rounded-2xl border p-6
+         bg-white border-gray-200
+         dark:bg-slate-900 dark:border-slate-800;
+}
+
+.comment-item.reply {
+  @apply ml-10 bg-gray-50 dark:bg-slate-800;
+}
+
+/* BODY */
+.comment-body {
+  @apply flex gap-4;
+}
+
+.comment-avatar img {
+  @apply rounded-full;
+}
+
+.comment-content {
+  @apply flex-1;
+}
+/* REPLYING */
+.comment-replying {
+  @apply mt-1 text-xs italic text-gray-500 dark:text-gray-400;
+}
+
+.comment-parent {
+  @apply font-semibold text-red-600 dark:text-red-500;
+}
+ /* REPLY LINK */
+.comment-reply-link {
+  @apply mt-3 text-sm text-red-600 dark:text-red-500;
+}
+
+/* FORM */
+.comment-form-wrapper {
+  @apply mt-14 rounded-2xl border p-6
+         bg-gray-50 border-gray-200
+         dark:bg-slate-900 dark:border-slate-800;
+}
+
+.comment-form-title {
+  @apply mb-4 text-lg font-semibold text-red-600 dark:text-red-500;
+}
+
+.comment-form {
+  @apply space-y-4;
+}
+
+.comment-input {
+  @apply w-full rounded-lg border p-3
+         bg-white text-gray-900 border-gray-300
+         placeholder:text-gray-400
+         focus:outline-none focus:ring-2 focus:ring-red-500
+         dark:bg-neutral-950 dark:text-gray-200 dark:border-slate-700;
+}
+
+.comment-submit {
+  @apply inline-flex items-center rounded-lg
+         bg-red-600 px-6 py-2 text-sm font-medium text-white
+         hover:bg-red-500 transition;
+}
+
+.comments-closed {
+  @apply mt-6 text-sm text-gray-500 dark:text-gray-400;
+}
+
+.comment-text {
+  @apply text-gray-800 dark:text-gray-200 leading-relaxed;
+}
+
+.comment-text p {
+  @apply my-3;
+}
+
+.comment-text a {
+  @apply text-red-600 dark:text-red-500 underline;
+}
+
+.comment-text strong {
+  @apply font-semibold;
+}
+
+.comment-text ul {
+  @apply my-3 ml-5 list-disc;
+}
+
+.comment-text ol {
+  @apply my-3 ml-5 list-decimal;
+}
+
+.comment-text li {
+  @apply my-1;
+}
 
 }
+
 

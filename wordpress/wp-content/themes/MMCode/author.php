@@ -7,40 +7,69 @@
   ?>
 
   <!-- Author header -->
-  <section class="author-hero">
-    <div class="author-hero-inner">
+<section class="author-card-wrapper">
 
-      <div class="author-avatar">
-        <?php echo get_avatar($author_id, 120); ?>
-      </div>
+  <div class="author-card">
 
-      <div class="author-info">
-        <h1 class="author-name">
-          <?php echo get_the_author_meta('display_name', $author_id); ?>
-        </h1>
+    <!-- Avatar -->
+    <div class="author-avatar">
+      <?php echo get_avatar($author_id, 96); ?>
+    </div>
 
-        <?php if ( get_the_author_meta('description', $author_id) ) : ?>
-          <p class="author-bio">
-            <?php echo get_the_author_meta('description', $author_id); ?>
-          </p>
+    <!-- Info -->
+    <div class="author-info">
+
+      <h1 class="author-name">
+        <?php echo get_the_author_meta('display_name', $author_id); ?>
+      </h1>
+
+      <?php if ( get_the_author_meta('description', $author_id) ) : ?>
+        <p class="author-bio">
+          <?php echo get_the_author_meta('description', $author_id); ?>
+        </p>
+      <?php endif; ?>
+
+      <!-- Stats -->
+      <div class="author-stats">
+
+        <span>
+          📝 <?php echo count_user_posts($author_id); ?> posts
+        </span>
+
+        <span class="dot">•</span>
+
+        <span>
+          💬 <?php echo get_comments([
+            'user_id' => $author_id,
+            'count'   => true
+          ]); ?> comments
+        </span>
+
+        <span class="dot">•</span>
+
+        <span>
+          ⏳ Member since
+          <?php echo date_i18n(
+            'F Y',
+            strtotime(get_the_author_meta('user_registered', $author_id))
+          ); ?>
+        </span>
+
+        <?php if ( get_the_author_meta('user_url', $author_id) ) : ?>
+          <span class="dot">•</span>
+          <a href="<?php echo esc_url(get_the_author_meta('user_url', $author_id)); ?>" target="_blank">
+            🌐 Website
+          </a>
         <?php endif; ?>
 
-        <div class="author-stats">
-          <span>
-            📝 <?php echo count_user_posts($author_id); ?> posts
-          </span>
-
-          <?php if ( get_the_author_meta('user_url', $author_id) ) : ?>
-            <span class="dot">•</span>
-            <a href="<?php echo esc_url(get_the_author_meta('user_url', $author_id)); ?>" target="_blank">
-              🌐 Website
-            </a>
-          <?php endif; ?>
-        </div>
       </div>
 
     </div>
-  </section>
+
+  </div>
+
+</section>
+
 
   <!-- Author posts -->
   <section class="author-posts">
