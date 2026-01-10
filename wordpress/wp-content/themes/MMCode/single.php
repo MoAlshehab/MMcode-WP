@@ -27,10 +27,14 @@
       <?php echo get_the_date(); ?>
     </span>
   </div>
-
+  
   <!-- Title -->
   <h1 class="post-title">
-    <?php the_title(); ?>
+    <?php the_title();
+    
+    // echo get_queried_object_id();
+    // print_r(wp_get_post_categories(get_queried_object_id()))
+    ?>
   </h1>
 
   <!-- Content -->
@@ -38,6 +42,71 @@
     <?php the_content(); ?>
     <?php edit_post_link('Edit', '<p class="post-edit">', '</p>'); ?>
   </div>
+  <?php
+$all_categories = get_categories([
+  'hide_empty' => false, // 👈 ook lege categorieën tonen
+]);
+?>
+
+<?php
+$related_posts = get_posts([
+  'posts_per_page' => 6,
+  'orderby'        => 'rand',
+  'post_status'    => 'publish',
+
+  // 👇 alleen posts uit dezelfde categorieën
+  'category__in'   => wp_get_post_categories( get_the_ID() ),
+
+  // 👇 huidige post uitsluiten
+  'post__not_in'   => [ get_the_ID() ],
+]);
+?>
+
+<?php if ( ! empty( $related_posts ) ) : ?>
+  <div class="post-related-posts">
+
+    <h3 class="post-related-posts-title">
+      Related posts
+    </h3>
+
+    <ul class="post-related-posts-list">
+      <?php foreach ( $related_posts as $post ) : setup_postdata( $post ); ?>
+        <li>
+          <a href="<?php the_permalink(); ?>"
+             class="post-related-post-link">
+            <?php the_title(); ?>
+          </a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+
+    <?php wp_reset_postdata(); ?>
+
+  </div>
+<?php endif; ?>
+
+
+
+<?php if ( ! empty( $all_categories ) ) : ?>
+  <div class="post-all-categories">
+
+    <h3 class="post-all-categories-title">
+      All categories
+    </h3>
+
+    <div class="post-all-categories-list">
+      <?php foreach ( $all_categories as $category ) : ?>
+        <a href="<?php echo esc_url( get_category_link( $category->term_id ) ); ?>"
+           class="post-all-category">
+          <?php echo esc_html( $category->name ); ?>
+        </a>
+      <?php endforeach; ?>
+    </div>
+
+  </div>
+<?php endif; ?>
+
+
 
   <!-- Tags -->
   <?php if ( has_tag() ) : ?>

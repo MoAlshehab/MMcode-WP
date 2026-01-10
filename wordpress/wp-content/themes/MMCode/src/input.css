@@ -608,6 +608,168 @@
 .comment-text li {
   @apply my-1;
 }
+/* =========================
+   ALL CATEGORIES (SINGLE)
+========================= */
+
+.post-all-categories {
+  @apply mt-14;
+}
+
+.post-all-categories-title {
+  @apply mb-4 text-lg font-semibold text-primary;
+}
+
+.post-all-categories-list {
+  @apply flex flex-wrap gap-2;
+}
+
+.post-all-category {
+  @apply inline-block rounded-full px-4 py-2
+         text-sm
+         bg-surface
+         text-textMuted
+         border border-borderBase
+         transition
+         hover:bg-surfaceLight
+         hover:text-primary;
+}
+
+
+/* =========================
+   RANDOM POSTS (SINGLE)
+========================= */
+
+.post-random-posts {
+  @apply mt-14;
+}
+
+.post-random-posts-title {
+  @apply mb-4 text-lg font-semibold text-primary;
+}
+
+.post-random-posts-list {
+  @apply space-y-2;
+}
+
+.post-random-post-link {
+  @apply block text-sm
+         text-textMuted
+         transition
+         hover:text-primary;
+}
+/* =========================
+   RELATED POSTS (SINGLE)
+========================= */
+
+.post-related-posts {
+  @apply mt-14;
+}
+
+.post-related-posts-title {
+  @apply mb-4 text-lg font-semibold text-primary;
+}
+
+.post-related-posts-list {
+  @apply space-y-2;
+}
+
+.post-related-post-link {
+  @apply block text-sm
+         text-textMuted
+         transition
+         hover:text-primary;
+}
+/* =========================
+   INDEX / BLOG OVERVIEW
+========================= */
+
+.index-page {
+  @apply bg-white text-gray-900
+         dark:bg-neutral-950 dark:text-gray-200;
+}
+
+.index-container {
+  @apply max-w-6xl mx-auto px-6 py-16;
+}
+
+/* HEADER */
+.index-header {
+  @apply mb-14 text-center;
+}
+
+.index-heading {
+  @apply text-4xl font-bold text-primary;
+}
+
+.index-subheading {
+  @apply mt-3 text-textMuted;
+}
+
+/* GRID */
+.index-grid {
+  @apply grid gap-10
+         sm:grid-cols-2
+         lg:grid-cols-3;
+}
+
+/* CARD */
+.index-card {
+  @apply flex flex-col overflow-hidden
+         rounded-2xl border
+         bg-surface border-borderBase
+         transition
+         hover:-translate-y-1
+         hover:shadow-xl;
+}
+
+/* IMAGE */
+.index-card-image img {
+  @apply h-56 w-full object-cover;
+}
+
+/* BODY */
+.index-card-body {
+  @apply flex flex-col gap-4 p-6;
+}
+
+/* META */
+.index-meta {
+  @apply text-xs text-textMuted;
+}
+
+.index-category {
+  @apply font-medium text-primary;
+}
+
+/* TITLE */
+.index-card-title a {
+  @apply text-lg font-semibold
+         transition
+         hover:text-primary;
+}
+
+/* EXCERPT */
+.index-card-excerpt {
+  @apply text-sm text-textMuted leading-relaxed;
+}
+
+/* AUTHOR */
+.index-card-author {
+  @apply mt-4 flex items-center gap-3;
+}
+
+.index-card-author img {
+  @apply rounded-full;
+}
+
+.author-label {
+  @apply text-xs uppercase tracking-wide text-textMuted;
+}
+
+.author-name {
+  @apply text-sm font-semibold text-primary;
+}
 
 }
 

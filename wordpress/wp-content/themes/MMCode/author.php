@@ -3,7 +3,8 @@
 <main class="bg-white text-black dark:bg-bg dark:text-textBase">
 
   <?php
-    $author_id = get_queried_object_id();
+$author_id = get_queried_object_id();
+$total_posts = count_user_posts($author_id);
   ?>
 
   <!-- Author header -->
@@ -75,9 +76,22 @@
   <section class="author-posts">
     <div class="author-posts-inner">
 
+
       <h2 class="author-posts-title">
-        Articles by <?php echo get_the_author_meta('display_name', $author_id); ?>
+          <?php if ( $total_posts >= 6 ) : ?>
+            Latest 6 posts Of <?php echo get_the_author_meta('display_name', $author_id); ?>
+          <?php else : ?>
+            Latest posts of <?php echo get_the_author_meta('display_name', $author_id); ?>
+          <?php endif; ?>
       </h2>
+
+    <?php
+          query_posts([
+                'author' => $author_id,
+                'posts_per_page' => 6,
+            ]);
+    ?>
+
 
       <?php if ( have_posts() ) : ?>
         <div class="author-posts-grid">

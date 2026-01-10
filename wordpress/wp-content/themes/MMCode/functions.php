@@ -118,3 +118,36 @@ add_action('wp_enqueue_scripts', function () {
   }
 });
 
+
+/**
+ * Numbering Pagination 
+ * Added by @Mo
+ */
+function numbering_pagination() {
+  global $wp_query;
+
+  $total_pages = $wp_query->max_num_pages;
+
+  if ( $total_pages <= 1 ) {
+    return;
+  }
+
+  $current_page = max( 1, get_query_var('paged') );
+
+  echo '<div class="index-nav">';
+
+  echo paginate_links([
+    'base'      => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
+    'format'    => '?paged=%#%',
+    'current'   => $current_page,
+    'total'     => $total_pages,
+    'mid_size'  => 1,
+    'end_size'  => 1,
+    'prev_text' => '<span class="btn-nav">← Previous</span>',
+    'next_text' => '<span class="btn-nav">Next →</span>',
+    'type'      => 'plain', // 👈 geen <ul>
+  ]);
+
+  echo '</div>';
+}
+
