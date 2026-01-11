@@ -68,34 +68,73 @@ add_filter('nav_menu_link_attributes', function ($atts, $item, $args) {
 }, 10, 3);
 
 /**
- * Customize The Excerpt Words length & Read More Dots 
- * Added By @Mo
+ * Custom excerpt length per page type
+ * MMCODE WP
  */
 
-function mmcode_extend_excerpt_length($length){
+function mmcode_custom_excerpt_length( $length ) {
+
+  if ( is_admin() ) {
+    return $length;
+  }
+
+  // Homepage / blog index
+  if ( is_home() ) {
+    return 30;
+  }
+
+  // Author page
+  if ( is_author() ) {
     return 20;
-}
-add_filter('excerpt_length', 'mmcode_extend_excerpt_length', 999);
+  }
 
+  // Category archive
+  if ( is_category() ) {
+    return 5;
+  }
 
-function mmcode_excerpt_change_dots($more){
-    return ' ...';
+  // Search results
+  if ( is_search() ) {
+    return 25;
+  }
+
+  // Other archives
+  if ( is_archive() ) {
+    return 22;
+  }
+
+  // Fallback
+  return 20;
 }
-add_filter('excerpt_more', 'mmcode_excerpt_change_dots');
+add_filter( 'excerpt_length', 'mmcode_custom_excerpt_length', 999 );
+
 
 /**
- * Dark mode script
- * Added by @Mo
+ * Custom excerpt more string
  */
-add_action('wp_enqueue_scripts', function () {
+function mmcode_custom_excerpt_more( $more ) {
+  return '…';
+}
+add_filter( 'excerpt_more', 'mmcode_custom_excerpt_more' );
+
+
+/**
+ * Enqueue theme scripts
+ * MMCODE WP
+ */
+function mmcode_enqueue_theme_scripts() {
+
   wp_enqueue_script(
-    'mmcode-theme-toggle',
+    'mmcode-theme',
     get_template_directory_uri() . '/assets/js/theme-toggle.js',
     [],
-    null,
+    wp_get_theme()->get('Version'),
     true
   );
-});
+
+}
+add_action('wp_enqueue_scripts', 'mmcode_enqueue_theme_scripts');
+
 
 /**
  * Custom logo support
@@ -134,20 +173,85 @@ function numbering_pagination() {
 
   $current_page = max( 1, get_query_var('paged') );
 
-  echo '<div class="index-nav">';
+  echo '<nav class="index-nav" aria-label="Pagination">';
 
   echo paginate_links([
     'base'      => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
     'format'    => '?paged=%#%',
     'current'   => $current_page,
     'total'     => $total_pages,
-    'mid_size'  => 1,
+    'mid_size'  => 2, // 👈 meer nummers rond current
     'end_size'  => 1,
-    'prev_text' => '<span class="btn-nav">← Previous</span>',
-    'next_text' => '<span class="btn-nav">Next →</span>',
-    'type'      => 'plain', // 👈 geen <ul>
+    'prev_text' => '<span class="btn-nav btn-nav-prev">← Previous</span>',
+    'next_text' => '<span class="btn-nav btn-nav-next">Next →</span>',
+    'type'      => 'plain',
   ]);
 
-  echo '</div>';
+  echo '</nav>';
 }
 
+
+/**
+ * Register Main Sidebar
+ * MMCODE WP
+ */
+
+function mmcode_register_sidebars() {
+
+  register_sidebar([
+    'name'          => __('Main Sidebar', 'mmcode'),
+    'id'            => 'main-sidebar',
+    'description'   => __('Main sidebar for blog, category and archive pages.', 'mmcode'),
+
+    'before_widget' => '<section id="%1$s" class="sidebar-widget %2$s">',
+    'after_widget'  => '</section>',
+
+    'before_title'  => '<h3 class="sidebar-title">',
+    'after_title'   => '</h3>',
+  ]);
+
+}
+add_action('widgets_init', 'mmcode_register_sidebars');
+
+
+/**
+ * Register Services Sidebar
+ * MMCODE WP
+ */
+function mmcode_register_services_sidebar() {
+
+  register_sidebar([
+    'name'          => __('Services Sidebar', 'mmcode'),
+    'id'            => 'services-sidebar',
+    'description'   => __('Sidebar for services and landing pages.', 'mmcode'),
+
+    'before_widget' => '<section id="%1$s" class="sidebar-widget %2$s">',
+    'after_widget'  => '</section>',
+
+    'before_title'  => '<h3 class="sidebar-title">',
+    'after_title'   => '</h3>',
+  ]);
+
+}
+add_action('widgets_init', 'mmcode_register_services_sidebar');
+
+/**
+ * Register Single Post Sidebar
+ * MMCODE WP
+ */
+function mmcode_register_single_sidebar() {
+
+  register_sidebar([
+    'name'          => __('Single Post Sidebar', 'mmcode'),
+    'id'            => 'single-post-sidebar',
+    'description'   => __('Sidebar shown on single post pages.', 'mmcode'),
+
+    'before_widget' => '<section id="%1$s" class="sidebar-widget %2$s">',
+    'after_widget'  => '</section>',
+
+    'before_title'  => '<h3 class="sidebar-title">',
+    'after_title'   => '</h3>',
+  ]);
+
+}
+add_action('widgets_init', 'mmcode_register_single_sidebar');

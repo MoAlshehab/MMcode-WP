@@ -1,137 +1,121 @@
 <?php get_header(); ?>
 
-<main class="bg-white text-black dark:bg-bg dark:text-textBase">
+<?php
+  $author_id    = get_queried_object_id();
+  $author_name  = get_the_author_meta('display_name', $author_id);
+  $total_posts  = count_user_posts($author_id);
+?>
 
-  <?php
-$author_id = get_queried_object_id();
-$total_posts = count_user_posts($author_id);
-  ?>
+<main class="author-page page">
 
-  <!-- Author header -->
-<section class="author-card-wrapper">
+  <!-- AUTHOR HEADER -->
+  <section class="author-hero">
+    <div class="author-hero-inner">
 
-  <div class="author-card">
+      <div class="author-avatar">
+        <?php echo get_avatar($author_id, 96); ?>
+      </div>
 
-    <!-- Avatar -->
-    <div class="author-avatar">
-      <?php echo get_avatar($author_id, 96); ?>
-    </div>
+      <div class="author-info">
+        <h1 class="author-name"><?php echo esc_html($author_name); ?></h1>
 
-    <!-- Info -->
-    <div class="author-info">
-
-      <h1 class="author-name">
-        <?php echo get_the_author_meta('display_name', $author_id); ?>
-      </h1>
-
-      <?php if ( get_the_author_meta('description', $author_id) ) : ?>
-        <p class="author-bio">
-          <?php echo get_the_author_meta('description', $author_id); ?>
-        </p>
-      <?php endif; ?>
-
-      <!-- Stats -->
-      <div class="author-stats">
-
-        <span>
-          📝 <?php echo count_user_posts($author_id); ?> posts
-        </span>
-
-        <span class="dot">•</span>
-
-        <span>
-          💬 <?php echo get_comments([
-            'user_id' => $author_id,
-            'count'   => true
-          ]); ?> comments
-        </span>
-
-        <span class="dot">•</span>
-
-        <span>
-          ⏳ Member since
-          <?php echo date_i18n(
-            'F Y',
-            strtotime(get_the_author_meta('user_registered', $author_id))
-          ); ?>
-        </span>
-
-        <?php if ( get_the_author_meta('user_url', $author_id) ) : ?>
-          <span class="dot">•</span>
-          <a href="<?php echo esc_url(get_the_author_meta('user_url', $author_id)); ?>" target="_blank">
-            🌐 Website
-          </a>
+        <?php if ( get_the_author_meta('description', $author_id) ) : ?>
+          <p class="author-bio">
+            <?php echo esc_html( get_the_author_meta('description', $author_id) ); ?>
+          </p>
         <?php endif; ?>
 
+        <div class="author-stats">
+          <span>📝 <?php echo $total_posts; ?> posts</span>
+          <span class="dot">•</span>
+          <span>
+            💬 <?php echo get_comments(['user_id' => $author_id, 'count' => true]); ?> comments
+          </span>
+          <span class="dot">•</span>
+          <span>
+            ⏳ Member since
+            <?php echo date_i18n('F Y', strtotime(get_the_author_meta('user_registered', $author_id))); ?>
+          </span>
+        </div>
       </div>
 
     </div>
+  </section>
 
-  </div>
+  <!-- CONTENT + SIDEBAR -->
+  <section class="author-content">
 
-</section>
+    <div class="layout-with-sidebar" id="authorLayout">
 
+      <!-- CONTENT -->
+      <div class="content-area">
 
-  <!-- Author posts -->
-  <section class="author-posts">
-    <div class="author-posts-inner">
+        <header class="author-posts-header">
+          <h2 class="author-posts-title">
+            <?php echo ($total_posts >= 6)
+              ? 'Latest 6 posts by ' . esc_html($author_name)
+              : 'Latest posts by ' . esc_html($author_name);
+            ?>
+          </h2>
 
+          <!-- SIDEBAR TOGGLE -->
+          <button class="sidebar-toggle" id="sidebarToggle">
+            ☰ Sidebar
+          </button>
+        </header>
 
-      <h2 class="author-posts-title">
-          <?php if ( $total_posts >= 6 ) : ?>
-            Latest 6 posts Of <?php echo get_the_author_meta('display_name', $author_id); ?>
-          <?php else : ?>
-            Latest posts of <?php echo get_the_author_meta('display_name', $author_id); ?>
-          <?php endif; ?>
-      </h2>
+        <?php
+          $author_posts = new WP_Query([
+            'author'         => $author_id,
+            'posts_per_page' => 6,
+            'paged'          => get_query_var('paged') ?: 1,
+          ]);
+        ?>
 
-    <?php
-          query_posts([
-                'author' => $author_id,
-                'posts_per_page' => 6,
-            ]);
-    ?>
+        <?php if ( $author_posts->have_posts() ) : ?>
+          <div class="author-posts-grid">
 
+            <?php while ( $author_posts->have_posts() ) : $author_posts->the_post(); ?>
+              <article class="author-post-card">
 
-      <?php if ( have_posts() ) : ?>
-        <div class="author-posts-grid">
-
-          <?php while ( have_posts() ) : the_post(); ?>
-            <article class="author-post-card">
-
-              <?php if ( has_post_thumbnail() ) : ?>
-                <a href="<?php the_permalink(); ?>" class="author-post-image">
-                  <?php the_post_thumbnail('medium'); ?>
-                </a>
-              <?php endif; ?>
-
-              <div class="author-post-content">
-                <h3 class="author-post-title">
-                  <a href="<?php the_permalink(); ?>">
-                    <?php the_title(); ?>
+                <?php if ( has_post_thumbnail() ) : ?>
+                  <a href="<?php the_permalink(); ?>" class="author-post-image">
+                    <?php the_post_thumbnail('medium'); ?>
                   </a>
-                </h3>
+                <?php endif; ?>
 
-                <p class="author-post-excerpt">
-                  <?php the_excerpt(); ?>
-                </p>
+                <div class="author-post-content">
+                  <h3 class="author-post-title">
+                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                  </h3>
 
-                <a href="<?php the_permalink(); ?>" class="author-post-link">
-                  Read article →
-                </a>
-              </div>
+                  <p class="author-post-excerpt"><?php the_excerpt(); ?></p>
 
-            </article>
-          <?php endwhile; ?>
+                  <a href="<?php the_permalink(); ?>" class="author-post-link">
+                    Read article →
+                  </a>
+                </div>
 
-        </div>
-      <?php else : ?>
-        <p class="text-textMuted">
-          No posts found.
-        </p>
-      <?php endif; ?>
+              </article>
+            <?php endwhile; ?>
+
+          </div>
+
+          <?php numbering_pagination(); ?>
+
+        <?php else : ?>
+          <p class="text-textMuted">No posts found.</p>
+        <?php endif; wp_reset_postdata(); ?>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar is-hidden" id="authorSidebar">
+        <?php get_sidebar(); ?>
+      </aside>
 
     </div>
+
   </section>
 
 </main>

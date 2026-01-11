@@ -1,27 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const toggle = document.getElementById('theme-toggle');
-  const html = document.documentElement;
+document.addEventListener('DOMContentLoaded', () => {
 
-  if (!toggle) return;
+  /* =========================
+     DARK MODE TOGGLE
+  ========================= */
 
-  // Load saved theme
-  if (localStorage.getItem('theme') === 'light') {
-    html.classList.remove('dark');
-    toggle.textContent = '☀️';
-  } else {
-    html.classList.add('dark');
-    toggle.textContent = '🌙';
+  const themeToggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      root.classList.toggle('dark');
+
+      // Optional: remember choice
+      if (root.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    });
   }
 
-  toggle.addEventListener('click', function () {
-    if (html.classList.contains('dark')) {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      toggle.textContent = '☀️';
-    } else {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      toggle.textContent = '🌙';
-    }
-  });
+  /* =========================
+     SIDEBAR TOGGLE (AUTHOR PAGE)
+  ========================= */
+
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('authorSidebar');
+
+  if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('is-hidden');
+    });
+  }
+
 });

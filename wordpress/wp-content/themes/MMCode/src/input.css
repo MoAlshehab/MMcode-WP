@@ -770,6 +770,357 @@
 .author-name {
   @apply text-sm font-semibold text-primary;
 }
+/* =========================
+   PAGINATION
+========================= */
+
+.index-nav {
+  @apply mt-16 flex flex-wrap items-center justify-center gap-2;
+}
+
+/* algemene knop */
+.index-nav .page-numbers,
+.index-nav .btn-nav {
+  @apply inline-flex items-center justify-center
+         min-w-[40px] h-10
+         rounded-lg
+         border border-borderBase
+         px-3
+         text-sm font-medium
+         text-textMuted
+         bg-surface
+         transition;
+}
+
+/* hover */
+.index-nav .page-numbers:hover,
+.index-nav .btn-nav:hover {
+  @apply bg-surfaceLight text-primary;
+}
+
+/* actieve pagina */
+.index-nav .page-numbers.current {
+  @apply bg-primary text-white border-primary;
+}
+
+/* prev / next iets breder */
+.index-nav .btn-nav-prev,
+.index-nav .btn-nav-next {
+  @apply px-4;
+}
+
+/* ======================================================
+   404 PAGE
+====================================================== */
+
+.error-404 {
+  @apply min-h-[70vh]
+         flex items-center justify-center
+         px-6;
+}
+
+.error-404-inner {
+  @apply max-w-xl text-center
+         rounded-2xl
+         bg-surface
+         border border-borderBase
+         p-10;
+}
+
+.error-code {
+  @apply block text-7xl font-bold
+         text-primary opacity-20;
+}
+
+.error-title {
+  @apply mt-4 text-3xl font-bold
+         text-textBase;
+}
+
+.error-description {
+  @apply mt-4 text-textMuted
+         leading-relaxed;
+}
+
+/* ACTIONS */
+.error-actions {
+  @apply mt-8 flex flex-wrap
+         justify-center gap-4;
+}
+
+/* BUTTON VARIANTS */
+.btn-primary {
+  @apply btn bg-primary text-white
+         hover:bg-primaryHover;
+}
+
+.btn-secondary {
+  @apply btn border border-borderBase
+         bg-surface text-textBase
+         hover:bg-surfaceLight;
+}
+
+/* SUGGESTIONS */
+.error-suggestions {
+  @apply mt-10 text-left;
+}
+
+.error-suggestions-title {
+  @apply mb-3 text-sm font-semibold
+         uppercase tracking-wide
+         text-textMuted;
+}
+
+.error-suggestions-list {
+  @apply space-y-2;
+}
+
+.error-suggestions-list a {
+  @apply text-sm text-primary
+         hover:underline;
+}
+/* ======================================================
+   CATEGORY PAGE (PROFESSIONAL)
+====================================================== */
+
+.category-page {
+  @apply page;
+}
+
+/* HERO */
+.category-hero {
+  @apply border-b border-borderBase
+         bg-surface;
+}
+
+.category-hero-inner {
+  @apply max-w-7xl mx-auto
+         px-6 py-20
+         text-center;
+}
+
+.category-label {
+  @apply text-xs uppercase tracking-widest
+         text-textMuted;
+}
+
+.category-title {
+  @apply mt-3 text-4xl font-bold
+         text-primary;
+}
+
+.category-description {
+  @apply mt-4 max-w-3xl mx-auto
+         text-textMuted;
+}
+
+/* STATS */
+.category-stats {
+  @apply mt-6 flex justify-center gap-4
+         text-sm text-textMuted;
+}
+
+.category-stats .dot {
+  @apply opacity-40;
+}
+
+/* POSTS */
+.category-posts {
+  @apply py-20;
+}
+
+.category-posts-inner {
+  @apply max-w-7xl mx-auto px-6;
+}
+
+.category-grid {
+  @apply grid gap-12
+         sm:grid-cols-2
+         lg:grid-cols-3;
+}
+
+/* CARD */
+.category-card {
+  @apply flex flex-col
+         border border-borderBase
+         bg-surface
+         transition
+         hover:shadow-xl
+         hover:-translate-y-1;
+}
+
+.category-card-image img {
+  @apply h-56 w-full object-cover;
+}
+
+.category-card-body {
+  @apply p-6 flex flex-col gap-4;
+}
+
+/* META */
+.category-meta {
+  @apply text-xs text-textMuted;
+}
+
+.category-meta .dot {
+  @apply mx-1 opacity-40;
+}
+
+/* TITLE */
+.category-card-title a {
+  @apply text-lg font-semibold
+         transition hover:text-primary;
+}
+
+/* EXCERPT */
+.category-card-excerpt {
+  @apply text-sm text-textMuted leading-relaxed;
+}
+
+/* FOOTER */
+.category-card-footer {
+  @apply mt-auto flex justify-between
+         items-center
+         text-sm text-textMuted;
+}
+
+.category-read-more {
+  @apply font-medium text-primary
+         hover:underline;
+}
+
+/* EMPTY */
+.category-empty {
+  @apply text-center text-textMuted;
+}
+
+
+/* ======================================================
+   SIDEBAR
+====================================================== */
+
+.layout-with-sidebar {
+  @apply max-w-7xl mx-auto
+         px-6 py-16
+         grid grid-cols-1
+         gap-12
+         lg:grid-cols-[1fr_320px];
+}
+
+/* SIDEBAR WRAPPER */
+.sidebar {
+  @apply border-l border-borderBase;
+}
+
+.sidebar-inner {
+  @apply pl-8;
+}
+
+/* WIDGET */
+.sidebar-widget {
+  @apply mb-12
+         border-b border-borderBase
+         pb-8;
+}
+
+/* TITLE */
+.sidebar-title {
+  @apply mb-4 text-sm font-semibold
+         uppercase tracking-widest
+         text-textBase;
+}
+
+/* LISTS */
+.sidebar-widget ul {
+  @apply space-y-2;
+}
+
+.sidebar-widget li {
+  @apply text-sm text-textMuted;
+}
+
+.sidebar-widget a {
+  @apply transition
+         hover:text-primary;
+}
+
+/* SEARCH WIDGET */
+.sidebar-widget input[type="search"] {
+  @apply w-full border border-borderBase
+         bg-surface
+         px-3 py-2
+         text-sm
+         focus:outline-none focus:ring-2
+         focus:ring-primary;
+}
+
+/* TAG CLOUD */
+.tagcloud a {
+  @apply inline-block mr-2 mb-2
+         border border-borderBase
+         px-3 py-1
+         text-xs
+         text-textMuted
+         transition
+         hover:text-primary
+         hover:border-primary;
+}
+/* ======================================================
+   AUTHOR SIDEBAR TOGGLE
+====================================================== */
+
+.author-posts-header {
+  @apply mb-8 flex items-center justify-between;
+}
+
+.sidebar-toggle {
+  @apply border border-borderBase
+         bg-surface
+         px-4 py-2
+         text-sm
+         transition
+         hover:bg-surfaceLight;
+}
+
+/* Sidebar states */
+.sidebar {
+  @apply transition-all duration-300;
+}
+
+.sidebar.is-hidden {
+  @apply hidden lg:block lg:opacity-0 lg:pointer-events-none;
+}
+
+/* ======================================================
+   SINGLE POST SIDEBAR
+====================================================== */
+
+.sidebar-single {
+  @apply border-l border-borderBase;
+}
+
+.sidebar-single .sidebar-inner {
+  @apply pl-8;
+}
+
+/* Widget base */
+.sidebar-single .sidebar-widget {
+  @apply mb-10 pb-8
+         border-b border-borderBase;
+}
+
+/* Title */
+.sidebar-single .sidebar-title {
+  @apply mb-3 text-sm font-semibold
+         uppercase tracking-widest
+         text-textBase;
+}
+
+/* Stats */
+.sidebar-stat-value {
+  @apply text-2xl font-bold
+         text-primary;
+}
 
 }
 
