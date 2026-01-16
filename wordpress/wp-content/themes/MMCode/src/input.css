@@ -1121,6 +1121,367 @@
   @apply text-2xl font-bold
          text-primary;
 }
+/* ======================================================
+   SINGLE SIDEBAR – RELATED POSTS
+====================================================== */
+
+.sidebar-related-list {
+  @apply space-y-2;
+}
+
+.sidebar-related-link {
+  @apply block text-sm
+         text-textMuted
+         transition
+         hover:text-primary;
+}
+/* ======================================================
+   SINGLE SIDEBAR – MOST COMMENTED
+====================================================== */
+
+.sidebar-most-commented-item {
+  @apply flex items-center justify-between gap-3;
+}
+
+.sidebar-comment-count {
+  @apply text-xs text-textMuted;
+}
+/* ======================================================
+   BREADCRUMB
+====================================================== */
+
+.breadcrumb {
+  @apply mb-6 text-sm;
+}
+
+.breadcrumb-list {
+  @apply flex flex-wrap items-center gap-2
+         text-textMuted;
+}
+
+.breadcrumb-item a {
+  @apply hover:text-primary transition;
+}
+
+.breadcrumb-item.current {
+  @apply text-textBase font-medium;
+}
+
+.breadcrumb-separator {
+  @apply opacity-50;
+}
+
+.lang-switcher-list {
+  @apply flex items-center gap-3 text-sm;
+}
+.lang-item a {
+  @apply text-textMuted hover:text-primary transition;
+}
+.lang-item.is-current a {
+  @apply text-primary font-semibold;
+}
+
+/* ======================================================
+   RESPONSIVE EXTENSIONS (NON-DESTRUCTIVE)
+   Added by Senior Frontend – MMCODE WP
+====================================================== */
+
+/* ---------- GLOBAL ---------- */
+html {
+  @apply scroll-smooth;
+}
+
+img {
+  @apply max-w-full h-auto;
+}
+
+/* ---------- TYPOGRAPHY SCALE ---------- */
+.post-title,
+.index-title,
+.category-title,
+.author-name {
+  @apply text-2xl sm:text-3xl lg:text-4xl;
+}
+
+.index-heading {
+  @apply text-3xl sm:text-4xl lg:text-5xl;
+}
+
+/* ---------- GRID SAFETY ---------- */
+.index-grid,
+.category-grid,
+.author-posts-grid {
+  @apply grid-cols-1;
+}
+
+@screen sm {
+  .index-grid,
+  .category-grid,
+  .author-posts-grid {
+    @apply grid-cols-2;
+  }
+}
+
+@screen lg {
+  .index-grid,
+  .category-grid,
+  .author-posts-grid {
+    @apply grid-cols-3;
+  }
+}
+
+/* ---------- SIDEBAR RESPONSIVE ---------- */
+.layout-with-sidebar {
+  @apply grid-cols-1;
+}
+
+@screen lg {
+  .layout-with-sidebar {
+    @apply grid-cols-[1fr_320px];
+  }
+}
+
+/* Hide sidebar toggle on desktop */
+@screen lg {
+  .sidebar-toggle {
+    @apply hidden;
+  }
+}
+
+/* ---------- NAV SPACING ---------- */
+.nav-main {
+  @apply gap-4;
+}
+
+@screen sm {
+  .nav-main {
+    @apply gap-6;
+  }
+}
+
+@screen lg {
+  .nav-main {
+    @apply gap-8;
+  }
+}
+
+/* ---------- ULTRA-WIDE CONTROL ---------- */
+@screen 2xl {
+  .index-container,
+  .author-posts-inner,
+  .category-posts-inner {
+    @apply max-w-7xl;
+  }
+}
+
+/* ======================================================
+   HEADER FINAL FIX (STRUCTURE SAFE)
+====================================================== */
+
+.nav-controls {
+  @apply flex items-center gap-3;
+}
+
+/* Mobile behavior */
+@media (max-width: 1023px) {
+
+  /* Menu (ul) verborgen */
+  .main-nav > ul {
+    @apply hidden
+           absolute top-full left-0
+           w-full
+           bg-surface
+           border-t border-borderBase
+           p-6
+           flex-col gap-4
+           z-50;
+  }
+
+  /* Open menu */
+  .main-nav.is-open > ul {
+    @apply flex;
+  }
+}
+
+/* Desktop blijft hetzelfde */
+@media (min-width: 1024px) {
+  .main-nav {
+    @apply flex items-center gap-6 bg-white;
+  }
+
+  .main-nav > ul {
+    @apply flex static
+           p-0
+           bg-transparent;
+  }
+}
+
+
+@media (max-width: 1023px) {
+  .main-nav > ul {
+    @apply hidden
+           absolute top-full left-0
+           w-full
+           bg-surface
+           border-t border-borderBase
+           p-6
+           flex-col gap-4
+           z-50;
+  }
+
+  .main-nav.is-open > ul {
+    @apply flex;
+  }
+}
+
+.post-reading-time {
+  @apply text-sm text-textMuted;
+}
+
+.post-views {
+  @apply text-sm text-textMuted;
+}
+
+.back-to-top {
+  @apply fixed bottom-6 right-6 z-50
+         h-11 w-11
+         rounded-lg
+         border border-borderBase
+         bg-surface
+         text-primary
+         opacity-0 invisible
+         transition-all duration-300;
+}
+
+.back-to-top.is-visible {
+  @apply opacity-100 visible;
+}
+
+.back-to-top:hover {
+  @apply bg-surfaceLight;
+}
+.post-toc {
+  @apply mb-10 rounded-xl border border-borderBase
+         bg-surface p-6;
+}
+
+.post-toc-title {
+  @apply mb-4 text-lg font-semibold text-primary;
+}
+
+.post-toc-list {
+  @apply space-y-2 text-sm;
+}
+
+.post-toc-list a {
+  @apply text-textMuted hover:text-primary transition;
+}
+
+.toc-level-3 {
+  @apply ml-4 text-xs;
+}
+.hero {
+  @apply relative border-b border-borderBase bg-bg;
+}
+
+.hero-media img {
+  @apply w-full h-[65vh] object-cover;
+}
+
+.hero::after {
+  content: "";
+  @apply absolute inset-0 bg-black/45 pointer-events-none;
+}
+
+
+.hero-overlay {
+  @apply absolute inset-0 z-10
+         flex flex-col justify-end
+         max-w-7xl mx-auto
+         px-6 pb-16
+         text-white;
+}
+
+.hero-title {
+  @apply text-4xl md:text-5xl font-bold leading-tight;
+}
+
+.hero-category {
+  @apply mb-3 inline-block
+         text-sm text-primary;
+}
+
+.hero-meta {
+  @apply mt-2 text-sm text-gray-200;
+}
+.hero-link {
+  @apply block relative;
+}
+
+.hero {
+  @apply relative;
+}
+.layout-default {
+  @apply grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10;
+}
+
+.layout-full {
+  @apply max-w-5xl mx-auto;
+}
+
+
+/* Voor alle kleuren per post */
+.post-wrapper {
+  --accent: #ef4444;
+}
+
+.post-title,
+.hero-title,
+.post-author-name,
+.post-toc a:hover {
+  color: var(--accent);
+}
+
+.post-category,
+.post-tags span {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.post-related-post-link:hover {
+  color: var(--accent);
+}
+
+/* =========================
+   FEATURED POST
+========================= */
+
+.is-featured {
+  @apply relative col-span-full
+         border-2 border-primary
+         bg-surfaceLight
+         p-6;
+}
+
+/* Label */
+.is-featured::before {
+  content: "Featured";
+  @apply absolute top-4 left-4
+         bg-primary text-white
+         text-xs font-semibold
+         px-3 py-1;
+}
+
+/* Titel groter */
+.is-featured .index-card-title {
+  @apply text-2xl;
+}
+
+/* Image groter */
+.is-featured .index-card-image img {
+  @apply h-[420px] object-cover;
+}
+
 
 }
 

@@ -10,16 +10,26 @@
       <p class="index-subheading">
         Insights, tutorials and updates from MMCode
       </p>
+
+      <p><?php esc_html_e('Written by', 'mmcode'); ?></p>
+
+<a><?php esc_html_e('Read article', 'mmcode'); ?></a>
+
     </header>
 
     <div class="index-grid">
 
+    
+
       <?php while ( have_posts() ) : the_post(); ?>
-        <article class="index-card">
+        <article class="index-card <?php echo mmcode_is_featured_post() ? 'is-featured' : ''; ?>">
 
           <?php if ( has_post_thumbnail() ) : ?>
             <a href="<?php the_permalink(); ?>" class="index-card-image">
-              <?php the_post_thumbnail('large'); ?>
+            <?php the_post_thumbnail('large', [
+              'loading'        => 'eager',
+              'fetchpriority' => 'high',
+            ]); ?>
             </a>
           <?php endif; ?>
 
@@ -48,6 +58,8 @@
               <div>
                 <p class="author-label">Written by</p>
                 <p class="author-name"><?php the_author(); ?></p>
+                👀 <?php echo esc_html( mmcode_get_post_views( get_the_ID() ) ); ?>
+
               </div>
             </div>
 

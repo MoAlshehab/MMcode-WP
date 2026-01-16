@@ -13,6 +13,12 @@
 </footer>
 
 <?php wp_footer(); ?>
+<button id="backToTop"
+        class="back-to-top"
+        aria-label="Back to top">
+  ↑TOP
+</button>
+
 </body>
 </html>
  

@@ -7,6 +7,10 @@
 ?>
 
 <main class="author-page page">
+  <!-- Breadcrumb -->
+        <?php if ( function_exists('mmcode_breadcrumb') ) : ?>
+          <?php mmcode_breadcrumb(); ?>
+        <?php endif; ?>
 
   <!-- AUTHOR HEADER -->
   <section class="author-hero">
@@ -80,7 +84,10 @@
 
                 <?php if ( has_post_thumbnail() ) : ?>
                   <a href="<?php the_permalink(); ?>" class="author-post-image">
-                    <?php the_post_thumbnail('medium'); ?>
+                <?php the_post_thumbnail('medium', [
+                  'loading'  => 'lazy',
+                  'decoding' => 'async',
+                ]); ?>
                   </a>
                 <?php endif; ?>
 

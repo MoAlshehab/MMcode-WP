@@ -25,7 +25,7 @@
     </a>
 
     <!-- Navigation -->
-    <nav class="main-nav" aria-label="Main navigation">
+<nav class="main-nav" aria-label="Main navigation" id="mobileMenu">
       <?php mmcode_tailwind_menu(); ?>
 
       <button id="theme-toggle"
@@ -33,7 +33,17 @@
               aria-label="Toggle dark mode">
         🌙
       </button>
+
+      <!-- Mobile menu toggle -->
+<button id="mobileMenuToggle"
+        class="mobile-menu-toggle"
+        aria-label="Toggle menu">
+  ☰
+</button>
+
     </nav>
+
+
 
   </div>
 
