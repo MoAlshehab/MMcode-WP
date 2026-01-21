@@ -20,3 +20,11 @@ require get_template_directory() . '/inc/lazy-load.php';
 require get_template_directory() . '/inc/post-layout.php';
 require get_template_directory() . '/inc/post-options.php';
 require get_template_directory() . '/inc/featured-posts.php';
+
+
+require get_template_directory() . '/inc/pattern-categories.php';
+require get_template_directory() . '/inc/patterns/mm-patterns/patterns.php';
+require get_template_directory() . '/inc/patterns/mm-patterns/cta.php';
+
+
+
