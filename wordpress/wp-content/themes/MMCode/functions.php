@@ -25,6 +25,12 @@ require get_template_directory() . '/inc/featured-posts.php';
 require get_template_directory() . '/inc/pattern-categories.php';
 require get_template_directory() . '/inc/patterns/mm-patterns/patterns.php';
 require get_template_directory() . '/inc/patterns/mm-patterns/cta.php';
+require get_template_directory() . '/inc/patterns/mm-patterns/hero.php';
+/**
+ * Page header
+ */
+require get_stylesheet_directory() . '/inc/page-header.php';
 
-
-
+require get_stylesheet_directory() . '/inc/theme-settings.php';
+require get_stylesheet_directory() . '/inc/dashboard-widgets.php';
+require get_stylesheet_directory() . '/inc/admin-cleanup.php';
