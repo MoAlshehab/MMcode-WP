@@ -28,7 +28,7 @@ $socials = [
 
 <footer
     class="mm-footer bg-white text-black border-t border-gray-200
-           dark:bg-bg dark:text-textBase dark:border-borderBase"
+           dark:bg-bg dark:text-textBase dark:border-borderBase" 
 >
 
     <!--

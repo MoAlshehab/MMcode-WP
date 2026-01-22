@@ -39,3 +39,4 @@ require get_stylesheet_directory() . '/inc/socials.php';
 require get_stylesheet_directory() . '/inc/page-background-meta.php';
 require get_stylesheet_directory() . '/inc/page-widgets-meta.php';
 require get_stylesheet_directory() . '/inc/widgets.php';
+require get_stylesheet_directory() . '/inc/page-hero-media-meta.php';
