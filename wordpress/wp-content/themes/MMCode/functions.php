@@ -34,3 +34,5 @@ require get_stylesheet_directory() . '/inc/page-header.php';
 require get_stylesheet_directory() . '/inc/theme-settings.php';
 require get_stylesheet_directory() . '/inc/dashboard-widgets.php';
 require get_stylesheet_directory() . '/inc/admin-cleanup.php';
+require get_stylesheet_directory() . '/inc/layout.php';
+require get_stylesheet_directory() . '/inc/socials.php';

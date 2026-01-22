@@ -4,6 +4,8 @@
  * - Bedrijfsgegevens
  * - CTA
  * - Theme kleuren (via WordPress color picker)
+ * - Layout (container breedte)
+ * - Social media links
  *
  * Database:
  * wp_options → mm_theme_options (array)
@@ -15,13 +17,8 @@ if (!is_admin()) {
 
 /**
  * ==================================================
- * 1. COLOR PICKER CORRECT LADEN (BELANGRIJK)
+ * 1. COLOR PICKER CORRECT LADEN
  * ==================================================
- *
- * Wat ik hier doe:
- * - Ik laad ALTIJD de WordPress color picker
- * - Alleen op admin-pagina’s
- * - Zonder afhankelijk te zijn van $hook (die faalt vaak)
  */
 add_action('admin_enqueue_scripts', function () {
 
@@ -29,16 +26,12 @@ add_action('admin_enqueue_scripts', function () {
         return;
     }
 
-    // WordPress color picker CSS + JS
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('wp-color-picker');
 
-    // Inline JS om de picker te activeren
     wp_add_inline_script(
         'wp-color-picker',
-        'jQuery(document).ready(function($){
-            $(".mm-color-field").wpColorPicker();
-        });'
+        'jQuery(function($){ $(".mm-color-field").wpColorPicker(); });'
     );
 });
 
@@ -82,37 +75,10 @@ add_action('admin_init', function () {
         'mm_theme_settings'
     );
 
-    add_settings_field(
-        'company_name',
-        __('Bedrijfsnaam', 'mmcode'),
-        'mm_company_name_field',
-        'mm_theme_settings',
-        'mm_company_section'
-    );
-
-    add_settings_field(
-        'company_email',
-        __('E-mailadres', 'mmcode'),
-        'mm_company_email_field',
-        'mm_theme_settings',
-        'mm_company_section'
-    );
-
-    add_settings_field(
-        'company_phone',
-        __('Telefoonnummer', 'mmcode'),
-        'mm_company_phone_field',
-        'mm_theme_settings',
-        'mm_company_section'
-    );
-
-    add_settings_field(
-        'company_kvk',
-        __('KVK-nummer', 'mmcode'),
-        'mm_company_kvk_field',
-        'mm_theme_settings',
-        'mm_company_section'
-    );
+    add_settings_field('company_name', __('Bedrijfsnaam', 'mmcode'), 'mm_company_name_field', 'mm_theme_settings', 'mm_company_section');
+    add_settings_field('company_email', __('E-mailadres', 'mmcode'), 'mm_company_email_field', 'mm_theme_settings', 'mm_company_section');
+    add_settings_field('company_phone', __('Telefoonnummer', 'mmcode'), 'mm_company_phone_field', 'mm_theme_settings', 'mm_company_section');
+    add_settings_field('company_kvk', __('KVK-nummer', 'mmcode'), 'mm_company_kvk_field', 'mm_theme_settings', 'mm_company_section');
 
     /**
      * -------- CTA --------
@@ -124,13 +90,7 @@ add_action('admin_init', function () {
         'mm_theme_settings'
     );
 
-    add_settings_field(
-        'default_cta_text',
-        __('Standaard CTA tekst', 'mmcode'),
-        'mm_cta_text_field',
-        'mm_theme_settings',
-        'mm_cta_section'
-    );
+    add_settings_field('default_cta_text', __('Standaard CTA tekst', 'mmcode'), 'mm_cta_text_field', 'mm_theme_settings', 'mm_cta_section');
 
     /**
      * -------- KLEUREN --------
@@ -142,21 +102,44 @@ add_action('admin_init', function () {
         'mm_theme_settings'
     );
 
-    add_settings_field(
-        'primary_color',
-        __('Primaire kleur', 'mmcode'),
-        'mm_primary_color_field',
-        'mm_theme_settings',
-        'mm_color_section'
+    add_settings_field('primary_color', __('Primaire kleur', 'mmcode'), 'mm_primary_color_field', 'mm_theme_settings', 'mm_color_section');
+    add_settings_field('secondary_color', __('Secundaire kleur', 'mmcode'), 'mm_secondary_color_field', 'mm_theme_settings', 'mm_color_section');
+
+    /**
+     * ==================================================
+     * LAYOUT (CONTAINER BREEDTE)  ✅ NIEUW
+     * ==================================================
+     */
+    add_settings_section(
+        'mm_layout_section',
+        __('Layout', 'mmcode'),
+        '__return_false',
+        'mm_theme_settings'
     );
 
     add_settings_field(
-        'secondary_color',
-        __('Secundaire kleur', 'mmcode'),
-        'mm_secondary_color_field',
+        'container_width',
+        __('Container breedte', 'mmcode'),
+        'mm_container_width_field',
         'mm_theme_settings',
-        'mm_color_section'
+        'mm_layout_section'
     );
+
+    /**
+     * ==================================================
+     * SOCIAL MEDIA  ✅ NIEUW
+     * ==================================================
+     */
+    add_settings_section(
+        'mm_social_section',
+        __('Social media', 'mmcode'),
+        '__return_false',
+        'mm_theme_settings'
+    );
+
+    add_settings_field('social_instagram', __('Instagram URL', 'mmcode'), 'mm_social_instagram_field', 'mm_theme_settings', 'mm_social_section');
+    add_settings_field('social_linkedin', __('LinkedIn URL', 'mmcode'), 'mm_social_linkedin_field', 'mm_theme_settings', 'mm_social_section');
+    add_settings_field('social_facebook', __('Facebook URL', 'mmcode'), 'mm_social_facebook_field', 'mm_theme_settings', 'mm_social_section');
 });
 
 /**
@@ -176,78 +159,73 @@ function mm_get_option($key, $default = '') {
  */
 
 function mm_company_name_field() {
-    ?>
-    <input type="text"
-           class="regular-text"
-           name="mm_theme_options[company_name]"
-           value="<?php echo esc_attr(mm_get_option('company_name')); ?>">
-    <?php
+    echo '<input class="regular-text" name="mm_theme_options[company_name]" value="' . esc_attr(mm_get_option('company_name')) . '">';
 }
 
 function mm_company_email_field() {
-    ?>
-    <input type="email"
-           class="regular-text"
-           name="mm_theme_options[company_email]"
-           value="<?php echo esc_attr(mm_get_option('company_email')); ?>">
-    <?php
+    echo '<input class="regular-text" name="mm_theme_options[company_email]" value="' . esc_attr(mm_get_option('company_email')) . '">';
 }
 
 function mm_company_phone_field() {
-    ?>
-    <input type="text"
-           class="regular-text"
-           name="mm_theme_options[company_phone]"
-           value="<?php echo esc_attr(mm_get_option('company_phone')); ?>">
-    <?php
+    echo '<input class="regular-text" name="mm_theme_options[company_phone]" value="' . esc_attr(mm_get_option('company_phone')) . '">';
 }
 
 function mm_company_kvk_field() {
-    ?>
-    <input type="text"
-           class="regular-text"
-           name="mm_theme_options[company_kvk]"
-           value="<?php echo esc_attr(mm_get_option('company_kvk')); ?>">
-    <?php
+    echo '<input class="regular-text" name="mm_theme_options[company_kvk]" value="' . esc_attr(mm_get_option('company_kvk')) . '">';
 }
 
 function mm_cta_text_field() {
-    ?>
-    <input type="text"
-           class="regular-text"
-           name="mm_theme_options[default_cta_text]"
-           value="<?php echo esc_attr(mm_get_option('default_cta_text')); ?>">
-    <?php
+    echo '<input class="regular-text" name="mm_theme_options[default_cta_text]" value="' . esc_attr(mm_get_option('default_cta_text')) . '">';
 }
 
 /**
- * -------- KLEURVELDEN (HIER GEBEURT HET) --------
+ * -------- KLEURVELDEN --------
  */
-
 function mm_primary_color_field() {
-    ?>
-    <input type="text"
-           class="mm-color-field"
-           name="mm_theme_options[primary_color]"
-           value="<?php echo esc_attr(mm_get_option('primary_color', '#0f172a')); ?>"
-           data-default-color="#0f172a">
-    <p class="description">
-        Hoofdkleur van de website (knoppen, links, highlights).
-    </p>
-    <?php
+    echo '<input class="mm-color-field" name="mm_theme_options[primary_color]" value="' . esc_attr(mm_get_option('primary_color', '#0f172a')) . '" data-default-color="#0f172a">';
 }
 
 function mm_secondary_color_field() {
-    ?>
-    <input type="text"
-           class="mm-color-field"
-           name="mm_theme_options[secondary_color]"
-           value="<?php echo esc_attr(mm_get_option('secondary_color', '#2563eb')); ?>"
-           data-default-color="#2563eb">
-    <p class="description">
-        Accentkleur (CTA’s, hover, badges).
-    </p>
-    <?php
+    echo '<input class="mm-color-field" name="mm_theme_options[secondary_color]" value="' . esc_attr(mm_get_option('secondary_color', '#2563eb')) . '" data-default-color="#2563eb">';
+}
+
+/**
+ * -------- CONTAINER BREEDTE --------
+ */
+function mm_container_width_field() {
+
+    $current = mm_get_option('container_width', 'md');
+
+    $options = [
+        'sm' => 'Sm – 1100px',
+        'md' => 'Md – 1280px (standaard)',
+        'lg' => 'Lg – 1440px',
+    ];
+
+    echo '<select name="mm_theme_options[container_width]">';
+
+    foreach ($options as $key => $label) {
+        echo '<option value="' . esc_attr($key) . '" ' . selected($current, $key, false) . '>';
+        echo esc_html($label);
+        echo '</option>';
+    }
+
+    echo '</select>';
+}
+
+/**
+ * -------- SOCIAL MEDIA --------
+ */
+function mm_social_instagram_field() {
+    echo '<input class="regular-text" name="mm_theme_options[social_instagram]" value="' . esc_attr(mm_get_option('social_instagram')) . '" placeholder="https://instagram.com/bedrijf">';
+}
+
+function mm_social_linkedin_field() {
+    echo '<input class="regular-text" name="mm_theme_options[social_linkedin]" value="' . esc_attr(mm_get_option('social_linkedin')) . '" placeholder="https://linkedin.com/company/bedrijf">';
+}
+
+function mm_social_facebook_field() {
+    echo '<input class="regular-text" name="mm_theme_options[social_facebook]" value="' . esc_attr(mm_get_option('social_facebook')) . '" placeholder="https://facebook.com/bedrijf">';
 }
 
 /**
@@ -258,14 +236,9 @@ function mm_secondary_color_field() {
 function mm_theme_settings_page() {
     ?>
     <div class="wrap">
-
         <h1><?php _e('Theme instellingen', 'mmcode'); ?></h1>
 
         <?php settings_errors(); ?>
-
-        <p>
-            Beheer hier de standaard bedrijfsgegevens en kies de kleuren van je website.
-        </p>
 
         <form method="post" action="options.php">
             <?php
@@ -274,7 +247,6 @@ function mm_theme_settings_page() {
             submit_button(__('Instellingen opslaan', 'mmcode'));
             ?>
         </form>
-
     </div>
     <?php
 }
