@@ -36,3 +36,6 @@ require get_stylesheet_directory() . '/inc/dashboard-widgets.php';
 require get_stylesheet_directory() . '/inc/admin-cleanup.php';
 require get_stylesheet_directory() . '/inc/layout.php';
 require get_stylesheet_directory() . '/inc/socials.php';
+require get_stylesheet_directory() . '/inc/page-background-meta.php';
+require get_stylesheet_directory() . '/inc/page-widgets-meta.php';
+require get_stylesheet_directory() . '/inc/widgets.php';
