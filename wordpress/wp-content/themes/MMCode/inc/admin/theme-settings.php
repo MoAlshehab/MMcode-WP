@@ -131,6 +131,48 @@ add_action('admin_init', function () {
         'mm_theme_settings',
         'mm_typography_section'
     );
+        /**
+         * ==================================================
+         * 7. BESCHIKBARE  standerd Headers 
+         * ==================================================
+         */
+
+            add_settings_section(
+            'mm_header_section',
+            __('Header instellingen', 'mmcode'),
+            '__return_false',
+            'mm_theme_settings'
+        );
+
+        add_settings_field(
+            'site_header',
+            __('Header layout', 'mmcode'),
+            'mm_header_select_field',
+            'mm_theme_settings',
+            'mm_header_section'
+        );
+
+
+
+/**
+ * ==================================================
+ * 7. BESCHIKBARE  standerd footers 
+ * ==================================================
+ */
+    add_settings_section(
+    'mm_footer_section',
+    __('Footer instellingen', 'mmcode'),
+    '__return_false',
+    'mm_theme_settings'
+);
+
+add_settings_field(
+    'site_footer',
+    __('Footer layout', 'mmcode'),
+    'mm_footer_select_field',
+    'mm_theme_settings',
+    'mm_footer_section'
+);
 
     /* =========================
        LAYOUT
@@ -298,4 +340,66 @@ function mm_available_fonts() {
         'bebas'      => 'Bebas Neue',
         'ibm'        => 'IBM Plex Sans',
     ];
+}
+
+
+/**
+ * ==================================================
+ * 7. BESCHIKBARE  standerd footers 
+ * ==================================================
+ */
+
+function mm_footer_select_field() {
+
+    $current = mm_get_option('site_footer', 'default');
+
+    $options = [
+        'default' => __('Standaard footer', 'mmcode'),
+        'minimal' => __('Minimal footer', 'mmcode'),
+        'dark'    => __('Dark footer', 'mmcode'),
+    ];
+
+    echo '<select name="mm_theme_options[site_footer]">';
+
+    foreach ($options as $key => $label) {
+        echo '<option value="' . esc_attr($key) . '" ' . selected($current, $key, false) . '>';
+        echo esc_html($label);
+        echo '</option>';
+    }
+
+    echo '</select>';
+
+    echo '<p class="description">';
+    esc_html_e('Kies welke footer standaard wordt gebruikt op de website.', 'mmcode');
+    echo '</p>';
+}
+
+/**
+ * ==================================================
+ * 7. BESCHIKBARE  standerd Headers 
+ * ==================================================
+ */
+function mm_header_select_field() {
+
+    $current = mm_get_option('site_header', 'default');
+
+    $options = [
+        'default'  => __('Standaard header', 'mmcode'),
+        'centered' => __('Centered header', 'mmcode'),
+        'minimal'  => __('Minimal header', 'mmcode'),
+    ];
+
+    echo '<select name="mm_theme_options[site_header]">';
+
+    foreach ($options as $key => $label) {
+        echo '<option value="' . esc_attr($key) . '" ' . selected($current, $key, false) . '>';
+        echo esc_html($label);
+        echo '</option>';
+    }
+
+    echo '</select>';
+
+    echo '<p class="description">';
+    esc_html_e('Kies welke header standaard wordt gebruikt op de website.', 'mmcode');
+    echo '</p>';
 }

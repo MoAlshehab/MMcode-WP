@@ -27,3 +27,42 @@ function mmcode_theme_setup() {
 }
 
 add_action('after_setup_theme', 'mmcode_theme_setup');
+
+
+/**
+ * Maak standaard pagina’s aan bij theme activatie
+ */
+add_action('after_switch_theme', function () {
+
+    $pages = [
+        'over-ons' => [
+            'title'   => 'Over ons',
+            'content' => '<!-- wp:pattern {"slug":"mmcode/over-ons"} /-->',
+        ],
+        'diensten' => [
+            'title'   => 'Diensten',
+            'content' => '<!-- wp:pattern {"slug":"mmcode/diensten"} /-->',
+        ],
+        'contact' => [
+            'title'   => 'Contact',
+            'content' => '<!-- wp:pattern {"slug":"mmcode/contact"} /-->',
+        ],
+    ];
+
+    foreach ($pages as $slug => $page) {
+
+        // Bestaat de pagina al?
+        if (get_page_by_path($slug)) {
+            continue;
+        }
+
+        wp_insert_post([
+            'post_title'   => $page['title'],
+            'post_name'    => $slug,
+            'post_content' => $page['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+        ]);
+    }
+});
+

@@ -4598,6 +4598,11 @@ img{
   background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1));
 }
 
+.bg-black{
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
 .bg-black\/40{
   background-color: rgb(0 0 0 / 0.4);
 }
@@ -4620,6 +4625,10 @@ img{
 .bg-surface{
   --tw-bg-opacity: 1;
   background-color: rgb(17 17 17 / var(--tw-bg-opacity, 1));
+}
+
+.bg-transparent{
+  background-color: transparent;
 }
 
 .bg-white{
@@ -4804,6 +4813,16 @@ img{
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.py-6{
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .text-left{
@@ -5000,11 +5019,6 @@ img{
   color: rgb(59 130 246 / var(--tw-text-opacity, 1));
 }
 
-.text-gray-400{
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
-}
-
 .text-neutral-300{
   --tw-text-opacity: 1;
   color: rgb(212 212 212 / var(--tw-text-opacity, 1));
@@ -5069,6 +5083,10 @@ img{
 .subpixel-antialiased{
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
+}
+
+.opacity-70{
+  opacity: 0.7;
 }
 
 .bg-blend-normal{

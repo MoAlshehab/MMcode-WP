@@ -45,29 +45,15 @@ require get_stylesheet_directory() . '/inc/page-hero-media-meta.php';
 require get_stylesheet_directory() . '/inc/contact-form.php';
 
 
-add_action('wp_head', function () {
-
-    $hover = mm_get_option('menu_hover_color', '#2563eb');
-
-    echo '<style>
-        :root {
-            --mm-menu-hover-color: ' . esc_attr($hover) . ';
-        }
-    </style>';
-});
+require get_template_directory() . '/inc/assets/theme-vars.php';
+require get_template_directory() . '/inc/assets/fonts.php';
 
 
-/**
- * Laad Google Fonts voor Gutenberg + frontend
- */
-function mmcode_load_fonts() {
+require get_template_directory() . '/inc/layout/footer-loader.php';
+require get_template_directory() . '/inc/layout/header-loader.php';
 
-    wp_enqueue_style(
-        'mmcode-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&family=Montserrat:wght@300;400;600;700&family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap',
-        [],
-        null
-    );
-}
-add_action('wp_enqueue_scripts', 'mmcode_load_fonts');
-add_action('enqueue_block_editor_assets', 'mmcode_load_fonts');
+
+require get_template_directory() . '/inc/patterns/mm-patterns/over-ons.php';
+require get_template_directory() . '/inc/patterns/mm-patterns/page-large.php';
+require get_template_directory() . '/inc/patterns/mm-patterns/page-services.php';
+require get_template_directory() . '/inc/patterns/mm-patterns/page-contact.php';
