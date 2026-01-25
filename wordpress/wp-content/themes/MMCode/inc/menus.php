@@ -34,13 +34,13 @@ function mmcode_tailwind_footer_menu() {
 
 add_filter('nav_menu_link_attributes', function ($atts, $item, $args) {
 
-  if ($args->theme_location === 'tailwind-menu') {
-    $atts['class'] = 'font-medium text-textBase hover:text-primary transition';
-  }
+    if ($args->theme_location === 'tailwind-menu') {
+        $atts['class'] = 'font-medium text-textBase transition mm-menu-link';
+    }
 
-  if ($args->theme_location === 'footer-menu') {
-    $atts['class'] = 'text-sm text-textMuted hover:text-primary transition';
-  }
+    if ($args->theme_location === 'footer-menu') {
+        $atts['class'] = 'text-sm text-textMuted transition mm-footer-menu-link';
+    }
 
-  return $atts;
+    return $atts;
 }, 10, 3);

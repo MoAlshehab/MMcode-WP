@@ -26,12 +26,14 @@ require get_template_directory() . '/inc/pattern-categories.php';
 require get_template_directory() . '/inc/patterns/mm-patterns/patterns.php';
 require get_template_directory() . '/inc/patterns/mm-patterns/cta.php';
 require get_template_directory() . '/inc/patterns/mm-patterns/hero.php';
+require get_template_directory() . '/inc/patterns/mm-patterns/homepage.php';
+
 /**
  * Page header
  */
 require get_stylesheet_directory() . '/inc/page-header.php';
 
-require get_stylesheet_directory() . '/inc/theme-settings.php';
+require get_stylesheet_directory() . '/inc/admin/theme-settings.php';
 require get_stylesheet_directory() . '/inc/dashboard-widgets.php';
 require get_stylesheet_directory() . '/inc/admin-cleanup.php';
 require get_stylesheet_directory() . '/inc/layout.php';
@@ -40,3 +42,16 @@ require get_stylesheet_directory() . '/inc/page-background-meta.php';
 require get_stylesheet_directory() . '/inc/page-widgets-meta.php';
 require get_stylesheet_directory() . '/inc/widgets.php';
 require get_stylesheet_directory() . '/inc/page-hero-media-meta.php';
+require get_stylesheet_directory() . '/inc/contact-form.php';
+
+
+add_action('wp_head', function () {
+
+    $hover = mm_get_option('menu_hover_color', '#2563eb');
+
+    echo '<style>
+        :root {
+            --mm-menu-hover-color: ' . esc_attr($hover) . ';
+        }
+    </style>';
+});

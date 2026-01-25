@@ -54,7 +54,7 @@ $socials = [
             <?php if ($email) : ?>
                 <p>
                     📧
-                    <a href="mailto:<?php echo esc_attr($email); ?>" class="hover:underline">
+                <a href="mailto:<?php echo esc_attr($email); ?>" class="mm-footer-link">
                         <?php echo esc_html($email); ?>
                     </a>
                 </p>
@@ -87,7 +87,7 @@ $socials = [
                         href="<?php echo esc_url($url); ?>"
                         target="_blank"
                         rel="noopener"
-                        class="hover:text-primary transition"
+                        class="mm-footer-link transition"
                     >
                         <?php echo esc_html($label); ?>
                     </a>

@@ -14,12 +14,39 @@
   ?>
 
   <!-- Theme CSS variables (globaal) -->
-  <style>
-    :root {
-      --mm-color-primary: <?php echo esc_html($primary_color); ?>;
-      --mm-color-secondary: <?php echo esc_html($secondary_color); ?>;
-    }
-  </style>
+<?php
+$menu_hover_color = $options['menu_hover_color'] ?? $secondary_color;
+?>
+<style>
+  :root {
+    --mm-color-primary: <?php echo esc_html($primary_color); ?>;
+    --mm-color-secondary: <?php echo esc_html($secondary_color); ?>;
+    --mm-menu-hover-color: <?php echo esc_html($menu_hover_color); ?>;
+  }
+
+  /* ===== MENU HOVER (HEADER) ===== */
+  .nav-main a {
+    transition: color .2s ease;
+  }
+  .nav-main a:hover {
+    color: var(--mm-menu-hover-color) !important;
+  }
+
+  /* ===== MENU HOVER (FOOTER) ===== */
+  .footer-nav a {
+    transition: color .2s ease;
+  }
+  .footer-nav a:hover {
+    color: var(--mm-menu-hover-color) !important;
+  }
+
+  /* ===== OPTIONAL: LOGO HOVER ===== */
+  .site-logo:hover {
+    color: var(--mm-menu-hover-color) !important;
+  }
+</style>
+
+
 
   <?php wp_head(); ?>
 </head>
