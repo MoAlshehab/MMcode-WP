@@ -1554,3 +1554,50 @@ img {
 .footer-nav .sub-menu a {
   @apply text-sm text-textMuted transition;
 }
+
+
+/* =========================
+   HEADER
+========================= */
+.site-header {
+  font-family: var(--mm-font-header);
+}
+
+/* LOGO */
+.site-logo {
+  color: var(--mm-color-primary);
+}
+
+/* MENU */
+.nav-main a {
+  transition: color .2s ease;
+}
+
+.nav-main a:hover {
+  color: var(--mm-menu-hover-color);
+}
+
+/* =========================
+   FOOTER
+========================= */
+.mm-footer {
+  font-family: var(--mm-font-footer);
+}
+
+.footer-nav a:hover {
+  color: var(--mm-menu-hover-color);
+}
+/* =========================
+   HEADER MENU FONT
+   Alleen menu links
+========================= */
+
+.nav-main a {
+  font-family: var(--mm-font-header-menu);
+}
+
+
+/* Standaard tekst */
+body {
+  font-family: Inter, sans-serif;
+}

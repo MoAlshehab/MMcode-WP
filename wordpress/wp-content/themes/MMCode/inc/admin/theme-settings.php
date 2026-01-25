@@ -1,13 +1,8 @@
 <?php
 /**
  * Theme instellingen pagina
- * - Bedrijfsgegevens
- * - CTA
- * - Theme kleuren (via WordPress color picker)
- * - Layout (container breedte)
- * - Social media links
  *
- * Database:
+ * Opslag:
  * wp_options → mm_theme_options (array)
  */
 
@@ -17,7 +12,7 @@ if (!is_admin()) {
 
 /**
  * ==================================================
- * 1. COLOR PICKER CORRECT LADEN
+ * 1. ADMIN ASSETS (COLOR PICKER)
  * ==================================================
  */
 add_action('admin_enqueue_scripts', function () {
@@ -37,7 +32,7 @@ add_action('admin_enqueue_scripts', function () {
 
 /**
  * ==================================================
- * 2. MENU IN DASHBOARD
+ * 2. DASHBOARD MENU
  * ==================================================
  */
 add_action('admin_menu', function () {
@@ -65,9 +60,9 @@ add_action('admin_init', function () {
         'mm_theme_options'
     );
 
-    /**
-     * -------- Bedrijfsgegevens --------
-     */
+    /* =========================
+       BEDRIJFSGEGEVENS
+    ========================== */
     add_settings_section(
         'mm_company_section',
         __('Bedrijfsgegevens', 'mmcode'),
@@ -80,26 +75,9 @@ add_action('admin_init', function () {
     add_settings_field('company_phone', __('Telefoonnummer', 'mmcode'), 'mm_company_phone_field', 'mm_theme_settings', 'mm_company_section');
     add_settings_field('company_kvk', __('KVK-nummer', 'mmcode'), 'mm_company_kvk_field', 'mm_theme_settings', 'mm_company_section');
 
-
-    add_settings_field(
-    'menu_hover_color',
-    __('Menu hover kleur', 'mmcode'),
-    'mm_menu_hover_color_field',
-    'mm_theme_settings',
-    'mm_color_section'
-);
-
-function mm_menu_hover_color_field() {
-    echo '<input class="mm-color-field" 
-        name="mm_theme_options[menu_hover_color]" 
-        value="' . esc_attr(mm_get_option('menu_hover_color', '#2563eb')) . '" 
-        data-default-color="#2563eb">';
-}
-
-
-    /**
-     * -------- CTA --------
-     */
+    /* =========================
+       CTA
+    ========================== */
     add_settings_section(
         'mm_cta_section',
         __('Call To Action', 'mmcode'),
@@ -107,11 +85,17 @@ function mm_menu_hover_color_field() {
         'mm_theme_settings'
     );
 
-    add_settings_field('default_cta_text', __('Standaard CTA tekst', 'mmcode'), 'mm_cta_text_field', 'mm_theme_settings', 'mm_cta_section');
+    add_settings_field(
+        'default_cta_text',
+        __('Standaard CTA tekst', 'mmcode'),
+        'mm_cta_text_field',
+        'mm_theme_settings',
+        'mm_cta_section'
+    );
 
-    /**
-     * -------- KLEUREN --------
-     */
+    /* =========================
+       KLEUREN
+    ========================== */
     add_settings_section(
         'mm_color_section',
         __('Theme kleuren', 'mmcode'),
@@ -122,22 +106,35 @@ function mm_menu_hover_color_field() {
     add_settings_field('primary_color', __('Primaire kleur', 'mmcode'), 'mm_primary_color_field', 'mm_theme_settings', 'mm_color_section');
     add_settings_field('secondary_color', __('Secundaire kleur', 'mmcode'), 'mm_secondary_color_field', 'mm_theme_settings', 'mm_color_section');
 
+    add_settings_field(
+        'menu_hover_color',
+        __('Menu hover kleur', 'mmcode'),
+        'mm_menu_hover_color_field',
+        'mm_theme_settings',
+        'mm_color_section'
+    );
 
-            /**
-         * -------- TYPOGRAFIE --------
-         */
-        add_settings_section(
-            'mm_typography_section',
-            __('Typografie', 'mmcode'),
-            '__return_false',
-            'mm_theme_settings'
-        );
+    /* =========================
+       TYPOGRAFIE
+    ========================== */
+    add_settings_section(
+        'mm_typography_section',
+        __('Typografie', 'mmcode'),
+        '__return_false',
+        'mm_theme_settings'
+    );
 
-    /**
-     * ==================================================
-     * LAYOUT (CONTAINER BREEDTE)  ✅ NIEUW
-     * ==================================================
-     */
+    add_settings_field(
+        'header_menu_font',
+        __('Header menu font', 'mmcode'),
+        'mm_header_menu_font_field',
+        'mm_theme_settings',
+        'mm_typography_section'
+    );
+
+    /* =========================
+       LAYOUT
+    ========================== */
     add_settings_section(
         'mm_layout_section',
         __('Layout', 'mmcode'),
@@ -153,11 +150,9 @@ function mm_menu_hover_color_field() {
         'mm_layout_section'
     );
 
-    /**
-     * ==================================================
-     * SOCIAL MEDIA  ✅ NIEUW
-     * ==================================================
-     */
+    /* =========================
+       SOCIAL MEDIA
+    ========================== */
     add_settings_section(
         'mm_social_section',
         __('Social media', 'mmcode'),
@@ -182,44 +177,60 @@ function mm_get_option($key, $default = '') {
 
 /**
  * ==================================================
- * 5. FIELDS
+ * 5. VELDEN
  * ==================================================
  */
 
+/* --- Bedrijf --- */
 function mm_company_name_field() {
     echo '<input class="regular-text" name="mm_theme_options[company_name]" value="' . esc_attr(mm_get_option('company_name')) . '">';
 }
-
 function mm_company_email_field() {
     echo '<input class="regular-text" name="mm_theme_options[company_email]" value="' . esc_attr(mm_get_option('company_email')) . '">';
 }
-
 function mm_company_phone_field() {
     echo '<input class="regular-text" name="mm_theme_options[company_phone]" value="' . esc_attr(mm_get_option('company_phone')) . '">';
 }
-
 function mm_company_kvk_field() {
     echo '<input class="regular-text" name="mm_theme_options[company_kvk]" value="' . esc_attr(mm_get_option('company_kvk')) . '">';
 }
 
+/* --- CTA --- */
 function mm_cta_text_field() {
     echo '<input class="regular-text" name="mm_theme_options[default_cta_text]" value="' . esc_attr(mm_get_option('default_cta_text')) . '">';
 }
 
-/**
- * -------- KLEURVELDEN --------
- */
+/* --- Kleuren --- */
 function mm_primary_color_field() {
     echo '<input class="mm-color-field" name="mm_theme_options[primary_color]" value="' . esc_attr(mm_get_option('primary_color', '#0f172a')) . '" data-default-color="#0f172a">';
 }
-
 function mm_secondary_color_field() {
     echo '<input class="mm-color-field" name="mm_theme_options[secondary_color]" value="' . esc_attr(mm_get_option('secondary_color', '#2563eb')) . '" data-default-color="#2563eb">';
 }
+function mm_menu_hover_color_field() {
+    echo '<input class="mm-color-field" name="mm_theme_options[menu_hover_color]" value="' . esc_attr(mm_get_option('menu_hover_color', '#2563eb')) . '" data-default-color="#2563eb">';
+}
 
-/**
- * -------- CONTAINER BREEDTE --------
- */
+/* --- Typography --- */
+function mm_header_menu_font_field() {
+
+    $fonts   = mm_available_fonts();
+    $current = mm_get_option('header_menu_font', 'inter');
+
+    echo '<select name="mm_theme_options[header_menu_font]">';
+    foreach ($fonts as $key => $label) {
+        echo '<option value="' . esc_attr($key) . '" ' . selected($current, $key, false) . '>';
+        echo esc_html($label);
+        echo '</option>';
+    }
+    echo '</select>';
+
+    echo '<p class="description">';
+    esc_html_e('Dit font wordt alleen toegepast op het menu in de header.', 'mmcode');
+    echo '</p>';
+}
+
+/* --- Layout --- */
 function mm_container_width_field() {
 
     $current = mm_get_option('container_width', 'md');
@@ -231,29 +242,23 @@ function mm_container_width_field() {
     ];
 
     echo '<select name="mm_theme_options[container_width]">';
-
     foreach ($options as $key => $label) {
         echo '<option value="' . esc_attr($key) . '" ' . selected($current, $key, false) . '>';
         echo esc_html($label);
         echo '</option>';
     }
-
     echo '</select>';
 }
 
-/**
- * -------- SOCIAL MEDIA --------
- */
+/* --- Social --- */
 function mm_social_instagram_field() {
-    echo '<input class="regular-text" name="mm_theme_options[social_instagram]" value="' . esc_attr(mm_get_option('social_instagram')) . '" placeholder="https://instagram.com/bedrijf">';
+    echo '<input class="regular-text" name="mm_theme_options[social_instagram]" value="' . esc_attr(mm_get_option('social_instagram')) . '">';
 }
-
 function mm_social_linkedin_field() {
-    echo '<input class="regular-text" name="mm_theme_options[social_linkedin]" value="' . esc_attr(mm_get_option('social_linkedin')) . '" placeholder="https://linkedin.com/company/bedrijf">';
+    echo '<input class="regular-text" name="mm_theme_options[social_linkedin]" value="' . esc_attr(mm_get_option('social_linkedin')) . '">';
 }
-
 function mm_social_facebook_field() {
-    echo '<input class="regular-text" name="mm_theme_options[social_facebook]" value="' . esc_attr(mm_get_option('social_facebook')) . '" placeholder="https://facebook.com/bedrijf">';
+    echo '<input class="regular-text" name="mm_theme_options[social_facebook]" value="' . esc_attr(mm_get_option('social_facebook')) . '">';
 }
 
 /**
@@ -277,4 +282,20 @@ function mm_theme_settings_page() {
         </form>
     </div>
     <?php
+}
+
+/**
+ * ==================================================
+ * 7. BESCHIKBARE FONTS
+ * ==================================================
+ */
+function mm_available_fonts() {
+    return [
+        'inter'      => 'Inter (default)',
+        'poppins'    => 'Poppins',
+        'roboto'     => 'Roboto',
+        'montserrat' => 'Montserrat',
+        'bebas'      => 'Bebas Neue',
+        'ibm'        => 'IBM Plex Sans',
+    ];
 }
